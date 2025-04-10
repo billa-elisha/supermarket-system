@@ -9,6 +9,8 @@
     #:set primaryBackgroundColor get_color_from_hex("#DBE2E9")
     #:set brightGreyColor get_color_from_hex("#E8E9EB")
     #:set platinumGreyColor get_color_from_hex("#E5E4E2")
+    # :set tabledataColor get_color_from_hex("#77B5FE")(219/255,226/255,233/255,1)
+    #:set tabledataColor get_color_from_hex("#7D69FB")
     name:'admin screen'
     md_bg_color: (1,1,1,1)
     MDBoxLayout:
@@ -307,15 +309,19 @@
                                     MDRecycleView:
                                         id:products_data
                                         viewclass: 'ProductsLabel'
+                                        bar_width: "10dp"
+                                        bar_inactive_color: (.5,.5,.5,1)
+                                        bar_color: (.2,.2,.2,1)
                                         # data: [{'text':'2'},{'text':'thafnda'},{'text':'techno'},{'text':'7899'},{'text':'90890'},{'text':'897'},{'text':'del,edit'},{'text':'1'},{'text':'thafnda'},{'text':'iphone'},{'text':'7899'},{'text':'90890'},{'text':'897'},{'text':'del,edit'},{'text':'3'},{'text':'thafnda'},{'text':'iphone'},{'text':'7899'},{'text':'90890'},{'text':'897'},{'text':'del,edit'},{'text':'1'},{'text':'thafnda'},{'text':'iphone'},{'text':'7899'},{'text':'90890'},{'text':'897'},{'text':'del,edit'}]
                                         MDRecycleGridLayout:
-                                            md_bg_color:platinumGreyColor
-                                            padding:('0dp','20dp','0dp','20dp',)
+                                            md_bg_color:(0,0,0,1)
+                                            spacing: '2dp'
                                             cols: 7
-                                            size_hint_y: 1
+                                            size_hint_y: None
                                             height: self.minimum_height
                                             default_size_hint: (1,None)
                                             default_size: None,dp(40)
+                                            
                                     
                         
 
@@ -343,3 +349,4 @@
 
 <ProductsLabel@MDLabel>:
     halign: 'center'
+    md_bg_color:tabledataColor

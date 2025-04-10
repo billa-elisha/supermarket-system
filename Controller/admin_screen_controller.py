@@ -644,9 +644,7 @@ class AdminScreenController:
         )
 
         self.productToDeleteTextField = MDTextField(
-            MDTextFieldHintText(
-                text="Enter product code or id", text_color_normal="gray"
-            ),
+            MDTextFieldHintText(text="Enter product id", text_color_normal="gray"),
             text="",
         )
         self.deleteDialog = MDDialog(

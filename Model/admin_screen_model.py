@@ -1,6 +1,3 @@
-from kivy.uix.gridlayout import product
-
-
 class AdminScreenModel:
     def __init__(self, database):
         self.database = database
@@ -94,12 +91,10 @@ class AdminScreenModel:
             db = self.database
             cur = db.cursor()
 
-            cur.execute(
-                f"delete from products where product_id={productToDelete} or product_bar_code='{productToDelete}';"
-            )
+            cur.execute(f"""delete from products where product_id={productToDelete};""")
             db.commit()
             db.close()
         except Exception as e:
             # if the product deleted is not found
-            print(e)
+
             return "No"
