@@ -1,0 +1,257 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+<OperatorScreenView>:
+    # variables of kivy wedgets
+    # colors
+    #:set mainBackgroundColor (1,1,1,1)
+    #:set primaryColor get_color_from_hex("32CD32")
+    #:set billHeaderTextColor (1,1,1,1)
+    #:set primaryTextColor get_color_from_hex("5C5C5C")
+    
+    name:'operator screen'
+    md_bg_color: mainBackgroundColor
+    MDBoxLayout:
+        orientation: 'vertical'
+        md_bg_color: primaryColor
+        padding: '2dp'
+        spacing: '2dp'
+
+        MDBoxLayout:
+            size_hint_y: None
+            height:'40dp'
+
+        # TOP BoxLayout:
+        MDBoxLayout:
+            size_hint_y: .6
+            spacing: '2dp'
+            # Searching section
+            MDBoxLayout:
+                orientation: 'horizontal'
+                md_bg_color: mainBackgroundColor
+                padding: '20dp'
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    spacing: '30dp'
+                    MDBoxLayout:
+                        size_hint_y: .2
+                    MDBoxLayout:
+                        adaptive_height: True
+                        size_hint_y:None
+                        spacing: '5dp'
+                       
+                                
+                    MDBoxLayout:
+                        adaptive_height: True
+                        size_hint_y:None
+                        spacing: '5dp'
+                        MDTextField:
+                            id:search_box
+                            mode:'outlined'
+                            multiline: False
+                            radius: ['10dp','0dp','0dp','10dp']
+                            MDTextFieldHintText:
+                                text: "Name or barcode"
+                                text_color_normal: "gray"
+                            
+                        MDButton:
+                            mode: 'outlined'
+                            theme_bg_color: "Custom"
+                            md_bg_color:  primaryColor
+                            style: "filled"
+                            height: "57dp"
+                            radius: ['0dp','10dp','10dp','0dp']
+                            on_press:root.controller.searchProduct(search_box,productNameLable,productPriceLable)
+                            MDButtonIcon:
+                                icon: 'magnify'
+                    MDBoxLayout:
+                        size_hint_y: .8
+                        
+                        
+
+                MDBoxLayout:
+                    size_hint_x: .3      
+                       
+            # searched product section
+            MDBoxLayout:
+                orientation: 'vertical'
+                md_bg_color: mainBackgroundColor
+                padding: '10dp'
+                MDBoxLayout:
+                    MDBoxLayout:
+                        size_hint_y: None
+                        orientation: 'vertical'
+                        padding: '10dp'
+                        
+                        MDBoxLayout:
+                            
+                            MDLabel:
+                                text: 'Product Name'
+                                bold: True
+                                theme_text_color: 'Custom'
+                                text_color:  primaryTextColor
+                            MDLabel:
+                                text: 'Price'
+                                bold: True
+                                theme_text_color: 'Custom'
+                                text_color:  primaryTextColor
+                            
+                        MDBoxLayout:
+                            
+                            MDLabel:
+                                id:productNameLable
+                                text: ''
+                                theme_text_color: 'Custom'
+                                text_color:  primaryTextColor
+                            MDLabel:
+                                id:productPriceLable
+                                text: ''
+                                theme_text_color: 'Custom'
+                                text_color:  primaryTextColor
+                            
+                MDBoxLayout:
+                    # size_hint_y: None
+                    spacing:'25'
+                    MDBoxLayout:
+                        
+                    MDButton:
+                        mode:'outlined'
+                        theme_bg_color: "Custom"
+                        md_bg_color: (1,0,0,.9) 
+                        on_press: root.controller.clearSearchedProduct(productNameLable, productPriceLable)
+                        adaptive_width: True
+                        MDButtonText:
+                            text:'clear'
+                            theme_text_color: 'Custom'
+                            text_color: (1,1,1,1) 
+                            bold: True
+                    MDButton:
+                        mode:'outlined'
+                        theme_bg_color: "Custom"
+                        md_bg_color: (0,0,.8,1)
+                        on_press: root.controller.undoButton(bill_data)
+                        adaptive_width: True
+                        MDButtonText:
+                            text:'undo'
+                            theme_text_color: 'Custom'
+                            text_color: (1,1,1,1) 
+                            bold: True
+                    MDButton:
+                        mode:'outlined'
+                        theme_bg_color: "Custom"
+                        md_bg_color: (0.2,0.2,0.2,1)
+                        on_press: root.controller.addToCard(productNameLable, productPriceLable,bill_data,totalpurchased)
+                        adaptive_width: True
+                        MDButtonText:
+                            text:'add to card'
+                            theme_text_color: 'Custom'
+                            text_color: (1,1,1,1) 
+                            bold: True
+                            adaptive_height: True
+                    MDBoxLayout:
+
+
+            # billing section
+            MDBoxLayout:
+                id:billing_box
+                orientation: 'vertical'
+                md_bg_color: mainBackgroundColor
+                padding: '20dp'
+                MDBoxLayout:
+                    size_hint_y: None
+                    height:'15dp'
+                    padding: ('0dp', '0dp', '0dp', '8dp')
+                    MDLabel:
+                        text:'Amount sold :  '
+                        halign: 'right'
+                        text_color: primaryTextColor
+                        bold: True
+                    MDLabel:
+                        id:amountsoldtoday
+                        text:'0.00'
+                        text_color: primaryTextColor
+                        size_hint_x: None 
+                        adaptive_width: True
+                MDBoxLayout:
+                    size_hint_y: None
+                    height: "40dp"
+                    md_bg_color: primaryColor
+                    padding: '10dp'
+                    MDLabel:
+                        text:'Item'
+                        text_color: billHeaderTextColor 
+                        bold: True
+                    MDLabel:
+                        text:'Unit price'
+                        text_color: billHeaderTextColor 
+                        bold: True
+                    MDLabel:
+                        text:'Qt'
+                        text_color: billHeaderTextColor 
+                        bold: True
+                    MDLabel:
+                        text:'Amount'
+                        text_color: billHeaderTextColor 
+                        bold: True
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    MDRecycleView:
+                        id:bill_data
+                        viewclass: 'MDLabel'
+                        MDRecycleGridLayout:
+                            cols: 4
+                            size_hint_y: None
+                            height: self.minimum_height
+                            default_size_hint: (1,None)
+                            default_size: None,dp(40)
+                    MDBoxLayout:
+                        size_hint_y: None
+                        height:'15dp'
+                        padding: ('0dp', '0dp', '0dp', '8dp')
+                        MDLabel:
+                            text:'Total :  '
+                            halign: 'right'
+                            text_color: primaryTextColor
+                            bold: True
+                        MDLabel:
+                            id:totalpurchased
+                            text:'0.00'
+                            text_color: primaryTextColor
+                            size_hint_x: None 
+                            adaptive_width: True
+                            
+                    
+        # BOTTOM BoxLayout
+        MDBoxLayout:
+            size_hint_y: .4
+            md_bg_color: mainBackgroundColor
+            orientation: 'vertical'
+            MDBoxLayout:
+                size_hint_y: None 
+                height: '50dp'
+                md_bg_color: mainBackgroundColor
+                padding: ('30dp', '5dp', '30dp', '5dp')
+                spacing: '120dp'
+                MDBoxLayout:
+                    MDBoxLayout:
+                        
+                    MDLabel:
+                        text: 'generate bill: '
+                        adaptive_width: True
+                    MDCheckbox:
+                        id: checbox
+                        padding:'10dp'
+                        active:True
+                        
+                    
+                MDButton:
+                    mode:'outlined'
+                    theme_bg_color: "Custom"
+                    md_bg_color: primaryColor
+                    on_press: root.controller.finiliseButton(checbox,bill_data,amountsoldtoday,totalpurchased)
+                    MDButtonText:
+                        text:'finalize'
+                        bold: True
+                        theme_text_color: 'Custom'
+                        text_color: (1,1,1,1) 
+            
+            MDBoxLayout:
+            

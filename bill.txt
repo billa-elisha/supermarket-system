@@ -1,0 +1,11 @@
+
+Name : WorldTech
+Contact : 045456566
+Location : Bolgatanga
+
+ Items  Rate    Qt    Amount 
+
+ gary   67.0    2     134.0  
+              Totol:  134.0  
+
+    
