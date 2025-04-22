@@ -16,7 +16,8 @@ class DataBase:
         cursor = db.cursor()
         query = """CREATE TABLE IF NOT EXISTS user(
                  user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                 user_name TEXT NOT NULL,
+                 user_first_name TEXT NOT NULL,
+                 user_last_name TEXT NOT NULL,
                  user_password TEXT NOT NULL,
                  user_designation TEXT NOT NULL,
                  user_contact INTEGER NOT NULL);"""
@@ -49,12 +50,14 @@ class DataBase:
             cursor = db.cursor()
             quary = """CREATE TABLE IF NOT EXISTS sales(
                     sales_id INTEGER PRIMARY KEY,
+                    product_code text NOT NULL,
                     product_name text NOT NULL,
                     quantity_sold INTEGER NOT NULL,
                     amount_sold REAL NOT NULL,
                     profit_made REAL NOT NULL,
                     date TEXT NOT NULL,
-                    month TEXT NOT NULL
+                    month TEXT NOT NULL,
+                    year TEXT NOT NULL
                     );"""
             cursor.execute(quary)
             db.close()

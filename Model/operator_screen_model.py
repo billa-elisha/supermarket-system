@@ -92,15 +92,18 @@ class OperatorScreenModel:
 
     def insertInToSalesTable(
         self,
+        product_code: str,
         name: str,
         qt_sold: int,
         amnt_sold: float,
         profit: float,
         date: str,
         month: str,
+        year: str,
     ):
         # This is the structure of the product table
         # sales_id INTEGER PRIMARY KEY,
+        # product_code text NOT NULL,
         # product_name text NOT NULL,
         # quantity_sold INTEGER NOT NULL,
         # amount_sold REAL NOT NULL,
@@ -116,12 +119,13 @@ class OperatorScreenModel:
             db = self.database
             cursor = db.cursor()
             cursor.execute(
-                f"insert into sales (product_name,quantity_sold,amount_sold,profit_made,date,month) values('{name}',{qt_sold},{amnt_sold},{profit},'{date}','{month}');"
+                f"insert into sales (product_code,product_name,quantity_sold,amount_sold,profit_made,date,month,year) values('{product_code}','{name}',{qt_sold},{amnt_sold},{profit},'{date}','{month}','{year}');"
             )
 
             db.commit()
 
         except Exception as e:
+            print("from database", e)
             pass
 
     def amountSoldOnEachDay(self):
@@ -147,7 +151,10 @@ class OperatorScreenModel:
                 f"select SUM(amount_sold) from sales where date='{todaysDate}';"
             )
             total = cursor.fetchone()[0]
-            return total
+            if total == None:
+                return 0.00
+            else:
+                return total
 
         except Exception as e:
             pass

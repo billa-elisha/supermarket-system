@@ -1,6 +1,14 @@
 #:import get_color_from_hex kivy.utils.get_color_from_hex
 <OperatorScreenView>:
     # variables of kivy wedgets
+    operator_search_field:search_box
+    productNameLable:productNameLable
+    productPriceLable:productPriceLable
+    billing_box:billing_box
+    amountsoldtoday:amountsoldtoday
+    bill_data:bill_data
+    totalpurchased:totalpurchased
+
     # colors
     #:set mainBackgroundColor (1,1,1,1)
     #:set primaryColor get_color_from_hex("32CD32")
@@ -109,8 +117,9 @@
                             
                 MDBoxLayout:
                     # size_hint_y: None
-                    spacing:'25'
+                    spacing:'20'
                     MDBoxLayout:
+                        size_hint_x: .1
                         
                     MDButton:
                         mode:'outlined'
@@ -137,16 +146,18 @@
                     MDButton:
                         mode:'outlined'
                         theme_bg_color: "Custom"
+                        theme_button_hieght: "Custom"
                         md_bg_color: (0.2,0.2,0.2,1)
                         on_press: root.controller.addToCard(productNameLable, productPriceLable,bill_data,totalpurchased)
                         adaptive_width: True
                         MDButtonText:
-                            text:'add to card'
+                            text:'add'
                             theme_text_color: 'Custom'
                             text_color: (1,1,1,1) 
                             bold: True
                             adaptive_height: True
                     MDBoxLayout:
+                        size_hint_x: .1
 
 
             # billing section

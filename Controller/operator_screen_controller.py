@@ -1,8 +1,10 @@
+from kivy.uix.accordion import ObjectProperty
 import View
 import View.OperatorScreen
 import View.OperatorScreen.operator_screen
 from kivy.utils import get_color_from_hex
 import decimal as PythonDecimal
+import numpy as np
 
 # from tabulate import tabulate
 from prettytable import PrettyTable, TableStyle
@@ -19,6 +21,8 @@ class OperatorScreenController:
             controller=self, model=self.model
         )
         self.searched_product = []
+        # self.product is a dictionary that takes every product you add the cart with it
+        # id as the key in the form {5:(5, '34332', 'gary', 5.0, 67.0, 8)}
         self.products_on_the_card = dict()
         self.recently_added_product_id = []  # this is use to help udate the produc_on_the_card when undo is press
 
@@ -30,25 +34,39 @@ class OperatorScreenController:
         This function takes the product name or bar code as it value
         to search for the product
         """
-        text = str(textbox.text)
-        productNameLable.text = ""
+        text = str(textbox.text)  # the name or code of product you searched
+        #
+        productNameLable.text = ""  # making sure the previews product searched details is cleared before processing the new product
         productNameLable.text_color = get_color_from_hex("5C5C5C")
+        # indicating an error if you click the search button without entering any product
         if text == "":
             textbox.error = True
             return
+        # searching for the product base on the text entered into the search field
         else:
+            # this is a list that contains the product searched everytime so we have to clear
+            # the previews searche product before we add the new product to it
             self.searched_product.clear()
+
+            # selectProduct is a function in the operator_screen_model.py that takes the
+            # the text of the product you search to search it from the database
             product_searched = self.model.selectProduct(text)
+
+            # this condition will turn to true when the product is not in the system
             if str(product_searched) == "None":
                 productNameLable.text = "No Product with that name or code"
                 productNameLable.text_color = (1, 0, 0, 1)
                 return
+            # if the product is found in the system this block will be executed
             else:
+                # The product search will be a tuple in the form (product_id, product_bar_code,product_name,product_cost_price,product_selling_price,product_quantity)
+                # so this condition is use to check the product your search in the system is avalilable or has finished
                 if int(product_searched[5]) < 1:
                     productNameLable.text = "Product is out of stock"
                     productNameLable.text_color = (1, 0, 0, 1)
                     return
                 else:
+                    # if it has not finished we add it to the searched product  lise
                     self.searched_product.append(
                         product_searched
                     )  # ==>[(5, '34332', 'gary', 5.0, 67.0, 8)]
@@ -82,26 +100,32 @@ class OperatorScreenController:
         pricelable = productPriceLable
         # it takes the product searched from the self.searched_product
         try:
-            if len(self.searched_product) == 0:
+            if (
+                len(self.searched_product) == 0
+            ):  # this turns to true if there is no product in the self.search_product
                 return
             else:
                 prod = list(self.searched_product[0])
-                # apdating the product quantity and multplying the
-                # amount if it already exist
+                # updating the product quantity and multplying the
+                # amount if it already exist in the cart
                 product_to_add_id = str(prod[0])
+
                 if product_to_add_id in (self.products_on_the_card.keys()):
                     # update that Product
                     product_to_update = self.products_on_the_card[
                         f"{product_to_add_id}"
-                    ]
+                    ]  # eg ====>[3, '12345', 'techno', 100.0, 899.09, 53, '1', 899.09] where [7] is the main cost of the product and [4] is the newly udated
+
                     # updating the price
                     product_to_update[4] = (
                         f"{(PythonDecimal.Decimal(f'{product_to_update[4]}') + PythonDecimal.Decimal(f'{product_to_update[7]}'))}"
                     )
+                    # updating the quantity
                     product_to_update[6] = f"{int(product_to_update[6]) + int(1)}"
                     updated_product = product_to_update
                     self.products_on_the_card[str(product_to_add_id)] = updated_product
                     recycleview.data = self.display_bill_data(totalpurchased)
+                    # adding the id of the updated product back to the  recently added list to help remove incase the undo button is press
                     self.recently_added_product_id.append(str(prod[0]))
 
                 else:
@@ -115,7 +139,7 @@ class OperatorScreenController:
                 self.clearSearchedProduct(namelable, pricelable)
         except Exception as e:
             print(e)
-            pass
+            return None
 
     def display_bill_data(self, tatalamnt_value):
         data_ = []
@@ -133,11 +157,11 @@ class OperatorScreenController:
                 data_.append({"text": f"{qt}"})
                 data_.append({"text": f"{amount}"})
                 total_amount.append(str(amount))
-            total = PythonDecimal.Decimal("0.0")
+            total = PythonDecimal.Decimal("0.00")
+            print(total_amount)
             for price in total_amount:
                 total += PythonDecimal.Decimal(f"{price}")
             tatalamnt_value.text = str(total)
-            # tatalamnt_value.text = str(sum(PythonDecimal.Decimal(f"{total_amount}")))
 
             return data_
 
@@ -154,25 +178,39 @@ class OperatorScreenController:
                     f"{(PythonDecimal.Decimal(f'{product_to_undo[4]}') - PythonDecimal.Decimal(f'{product_to_undo[7]}'))}"
                 )
                 self.products_on_the_card[key_of_the_last_product] = product_to_undo
-                recycleview.data = self.display_bill_data()
+                # getting acess to the total cost lable so that i can update the price
+                self.totalAmount = self.view.ids["totalpurchased"]
+
+                recycleview.data = self.display_bill_data(self.totalAmount)
 
             else:
                 # delete the product
-                del self.products_on_the_card[key_of_the_last_product]
+                product_to_undo[4] = (
+                    f"{(PythonDecimal.Decimal(f'{product_to_undo[4]}') - PythonDecimal.Decimal(f'{product_to_undo[7]}'))}"
+                )
+                self.products_on_the_card[key_of_the_last_product] = product_to_undo
                 new_list = []
                 for i in self.recently_added_product_id:
                     if i != key_of_the_last_product:
                         new_list.append(i)
 
                 self.recently_added_product_id = new_list
-                recycleview.data = self.display_bill_data()
+
+                # getting acess to the total cost lable so that i can update the price
+                self.totalAmount = self.view.ids["totalpurchased"]
+                recycleview.data = self.display_bill_data(self.totalAmount)
+                del self.products_on_the_card[key_of_the_last_product]
+                recycleview.data = self.display_bill_data(self.totalAmount)
 
         except IndexError as e:
+            self.totalAmount.text = str("0.00")
+            print(e)
             pass
 
     def finiliseButton(self, checbox, recycleview, amountsoldtoday, totalpurchased):
         isgeneratebill = checbox.active
 
+        # this is a python table format module to help print the data on a sheet of paper
         table = PrettyTable()
         table.set_style(TableStyle.SINGLE_BORDER)
         table.field_names = ["Items", "Rate", "Qt", "Amount"]
@@ -180,24 +218,29 @@ class OperatorScreenController:
         table.align["Rate"] = "l"
         table.align["Amount"] = "l"
         table_data = []
-        update_product_qt_in_db = []  # contains a list of the id of each product and the qt bought
+        update_product_qt_in_db = []  # contains a list of the id of each product and the qt bought to help me update all the products bought in the database
         if isgeneratebill:
-            for purchased_prod in self.products_on_the_card.keys():
+            for purchased_prod_id in self.products_on_the_card.keys():
+                # arranging the product data into the table for printing
                 table_data.append(
                     [
-                        self.products_on_the_card[purchased_prod][2],
-                        self.products_on_the_card[purchased_prod][7],
-                        self.products_on_the_card[purchased_prod][6],
-                        self.products_on_the_card[purchased_prod][4],
+                        self.products_on_the_card[purchased_prod_id][2],
+                        self.products_on_the_card[purchased_prod_id][7],
+                        self.products_on_the_card[purchased_prod_id][6],
+                        self.products_on_the_card[purchased_prod_id][4],
                     ]
                 )
+                #
                 update_product_qt_in_db.append(
                     [
-                        self.products_on_the_card[purchased_prod][0],
-                        self.products_on_the_card[purchased_prod][6],
-                        self.products_on_the_card[purchased_prod][2],
-                        self.products_on_the_card[purchased_prod][4],
-                        self.products_on_the_card[purchased_prod][3],
+                        self.products_on_the_card[purchased_prod_id][0],
+                        self.products_on_the_card[purchased_prod_id][6],
+                        self.products_on_the_card[purchased_prod_id][2],
+                        self.products_on_the_card[purchased_prod_id][4],
+                        self.products_on_the_card[purchased_prod_id][3],
+                        self.products_on_the_card[purchased_prod_id][
+                            1
+                        ],  # --------------
                     ]
                 )
             table.add_rows(table_data)
@@ -208,7 +251,7 @@ class OperatorScreenController:
             # removing previews bill
             try:
                 os.remove(file_path)
-            except:
+            except Exception as e:
                 pass
             # if the products_on_the_card is empty
             if len(self.products_on_the_card) == 0:
@@ -239,13 +282,13 @@ class OperatorScreenController:
                 recycleview.refresh_from_data()
                 recycleview.data = ""
 
-                # udating the product quantity in the database
+                # updating the product quantity in the database
                 for pr in update_product_qt_in_db:
                     try:
                         product_id = pr[0]
                         qt_purcharesed = pr[1]
                         self.model.updateProduct(product_id, qt_purcharesed)
-
+                        print(pr)
                         # adding each sold product to the sales table
                         pname = str(pr[2])
                         qtsold = int(pr[1])
@@ -255,15 +298,24 @@ class OperatorScreenController:
                             PythonDecimal.Decimal(f"{amntsold}")
                             - (qtsold * PythonDecimal.Decimal(f"{float(pr[4])}"))
                         )
-
+                        product_code = str(pr[5])
                         soldDate = datetime.now()
                         date = soldDate.strftime("%d %b %Y")
                         month = soldDate.strftime("%b %Y")
+                        year = soldDate.strftime("%Y")
 
                         self.model.insertInToSalesTable(
-                            pname, qtsold, amntsold, profit, date, month
+                            product_code,
+                            pname,
+                            qtsold,
+                            amntsold,
+                            profit,
+                            date,
+                            month,
+                            year,
                         )
                     except Exception as e:
+                        print(e)
                         pass
                 update_product_qt_in_db.clear()
         else:
@@ -297,13 +349,18 @@ class OperatorScreenController:
                     soldDate = datetime.now()
                     date = soldDate.strftime("%d %b %Y")
                     month = soldDate.strftime("%b %Y")
+                    year = soldDate.strftime("%Y")
+                    # print(month, year)
 
                     self.model.insertInToSalesTable(
-                        pname, qtsold, amntsold, profit, date, month
+                        pname, qtsold, amntsold, profit, date, month, year
                     )
-                except:
+                except Exception as e:
+                    print(e)
                     pass
             update_product_qt_in_db.clear()
-        amountsoldtoday.text = str(self.model.amountSoldOnEachDay())
+        amountsoldtoday.text = str(
+            np.float64(str(self.model.amountSoldOnEachDay())).round(decimals=2)
+        )
 
     # ==========================================================================

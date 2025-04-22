@@ -20,8 +20,28 @@ class AdminScreenModel:
                 return product
         except Exception as e:
             return []
-        finally:
-            db.close()
+
+    def selectSearchedUser(self, userIdOrName):
+        try:
+            db = self.database
+            cur = db.cursor()
+
+            # displaying all the users if the search box is empty
+            if str(userIdOrName) == "" or (str(userIdOrName).lower()) == "all":
+                cur.execute("SELECT * from user;")
+                users = cur.fetchall()
+                return users
+
+            # displaying the selected users if the name or id of the user is searched
+            else:
+                cur.execute(
+                    f"SELECT * from user where user_first_name='{userIdOrName}' or user_last_name='{userIdOrName}';"
+                )
+                user = cur.fetchall()
+                return user
+        except Exception as e:
+            print(e)
+            return []
 
     def selectAllProduct(self):
         """This function selects all the products in the database"""
@@ -37,6 +57,20 @@ class AdminScreenModel:
         except Exception as e:
             return ["None"]
 
+    def selectAllUsers(self):
+        """This function selects all the users in the database"""
+        try:
+            db = self.database
+            cur = db.cursor()
+            cur.execute("SELECT * from user;")
+            allUsers = cur.fetchall()
+            if len(allUsers) == 0:
+                return ["None"]
+            else:
+                return allUsers
+        except Exception as e:
+            return ["None"]
+
     def addProductToDatabase(self, code, name, cprice, sprice, quantity):
         try:
             db = self.database
@@ -49,6 +83,25 @@ class AdminScreenModel:
             quantity = int(quantity)
             cur.execute(
                 f"insert into products(product_bar_code,product_name,product_cost_price,product_selling_price,product_quantity ) values('{code}','{name}',{costprice},{sellingprice},{quantity});"
+            )
+            db.commit()
+            db.close()
+        except Exception as e:
+            print(e)
+
+    def addUserToDatabase(self, fname, lname, password, designation, contact):
+        try:
+            db = self.database
+            cur = db.cursor()
+            # converting the data into the correct datatypes befor inserting
+            fname = str(fname)
+            lname = str(lname)
+            password = str(password)
+            designation = str(designation)
+            contact = str(contact)
+
+            cur.execute(
+                f"insert into user(user_first_name,user_last_name,user_password,user_designation,user_contact) values('{fname}','{lname}','{password}','{designation}','{contact}');"
             )
             db.commit()
             db.close()
@@ -72,6 +125,76 @@ class AdminScreenModel:
         except Exception as e:
             return None
 
+    # sales section
+    def selectAllSales(self):
+        try:
+            db = self.database
+            cur = db.cursor()
+            # displaying the selected product
+
+            cur.execute("SELECT * from sales;")
+            sales = cur.fetchall()
+            return sales
+        except Exception as e:
+            print(e)
+            return ["None"]
+
+    def selectSalesByYear(self):
+        try:
+            db = self.database
+            cur = db.cursor()
+            # displaying the selected product
+
+            cur.execute("SELECT Distinct(year) from sales;")
+            salesByYear = cur.fetchall()
+            return salesByYear
+        except Exception as e:
+            print(e)
+            return ["None"]
+
+    def selectSalesByMonth(self):
+        try:
+            db = self.database
+            cur = db.cursor()
+            # displaying the selected product
+
+            cur.execute("SELECT Distinct(month) from sales;")
+            salesByMonth = cur.fetchall()
+            return salesByMonth
+        except Exception as e:
+            print(e)
+            return ["None"]
+
+    def selectSalesByDay(self):
+        try:
+            db = self.database
+            cur = db.cursor()
+            # displaying the selected product
+
+            cur.execute("SELECT Distinct(date) from sales;")
+            salesByDay = cur.fetchall()
+            return salesByDay
+        except Exception as e:
+            print(e)
+            return ["None"]
+
+    def selectSearchedUserToEdit(self, userIdOrfNameOrlName):
+        try:
+            db = self.database
+            cur = db.cursor()
+            # displaying all the products if the search box is empty
+            if str(userIdOrfNameOrlName) == "":
+                return
+            # displaying the selected product
+            else:
+                cur.execute(
+                    f"SELECT * from user where user_first_name='{userIdOrfNameOrlName}'or user_id='{userIdOrfNameOrlName}'or user_last_name='{userIdOrfNameOrlName}';"
+                )
+                user = cur.fetchone()
+                return user
+        except Exception as e:
+            return None
+
     def updateProduct(self, pId, pCode, pName, pCprice, pSprice, pQt):
         try:
             db = self.database
@@ -86,6 +209,20 @@ class AdminScreenModel:
             print(e)
             pass
 
+    def updateUser(self, uId, fName, lName, password, designation, contact):
+        try:
+            db = self.database
+            cur = db.cursor()
+
+            cur.execute(
+                f"update user SET user_first_name='{fName}',user_last_name='{lName}',user_password='{password}',user_designation='{designation}',user_contact={contact} where user_id={uId};"
+            )
+            db.commit()
+            db.close()
+        except Exception as e:
+            print(e)
+            pass
+
     def deleteProduct(self, productToDelete):
         try:
             db = self.database
@@ -93,8 +230,18 @@ class AdminScreenModel:
 
             cur.execute(f"""delete from products where product_id={productToDelete};""")
             db.commit()
-            db.close()
         except Exception as e:
             # if the product deleted is not found
 
+            return "No"
+
+    def deleteUser(self, userToDelete):
+        try:
+            db = self.database
+            cur = db.cursor()
+
+            cur.execute(f"""delete from user where user_id={userToDelete};""")
+            db.commit()
+        except Exception as e:
+            # if the product deleted is not found
             return "No"

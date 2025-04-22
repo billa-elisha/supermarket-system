@@ -26,7 +26,7 @@ class ABMSApp(MDApp):
             view.name = screen_name
             self.screen_manager.add_widget(view)
         self.screen_manager.current = "admin screen"
-        # print(self.screen_manager.screens)
+        print(self.screen_manager.screens)
         return self.screen_manager
 
 

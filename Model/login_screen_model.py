@@ -10,12 +10,12 @@ class LoginScreenModel:
             db = self.database
             cur = db.cursor()
             cur.execute(
-                f"SELECT user_name,user_password from user where user_name='{userName}' AND user_password='{userPassword}';"
+                f"SELECT user_first_name,user_password from user where user_first_name='{userName}' AND user_password='{userPassword}';"
             )
             user_data = cur.fetchone()
             return user_data
         except Exception as e:
-            pass
+            return None
 
         # self.creat_user_table()
 

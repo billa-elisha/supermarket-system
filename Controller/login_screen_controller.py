@@ -16,7 +16,7 @@ class LoginScreenContorller:
     def validate_user(self, userName, userPassword, error_ms, user_name, user_password):
         error_ms.text = ""
         fetched_user_data = self.model.select_user_data(userName, userPassword)
-        if fetched_user_data == None:
+        if fetched_user_data is None:
             "send user details not found"
             error_ms.text = "wrong username/password."
             return
@@ -35,8 +35,3 @@ class LoginScreenContorller:
         else:
             user_password.password = True
             show_pass.icon = "eye-off"
-
-    # def me(self):
-    #     self.model.select_all_users()
-    #     self.view.parent.current = "admin screen"
-    #     print(self.view.user_name.text)

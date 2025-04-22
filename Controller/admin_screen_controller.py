@@ -18,8 +18,12 @@ from kivymd.uix.textfield import (
     MDTextFieldHintText,
     MDTextFieldMaxLengthText,
 )
+
+from kivy.utils import get_color_from_hex
 import numpy as np
 import decimal as decimal
+from decimal import Decimal, ROUND_HALF_UP, getcontext
+import numpy as np
 
 
 class AdminScreenController:
@@ -29,6 +33,8 @@ class AdminScreenController:
             controller=self, model=self.model
         )
         self.displayAllProducts()
+        # print(self.view.ids)
+        self.displayAllUsers()
 
     def get_view(self):
         return self.view
@@ -161,7 +167,7 @@ class AdminScreenController:
             MDButtonIcon(icon="plus", theme_icon_color="Custom", icon_color="white"),
             style="filled",
             theme_bg_color="Custom",
-            md_bg_color=(0, 0, 1, 1),
+            md_bg_color=get_color_from_hex("#735FF2"),
         )
 
         # input fields for the popup box
@@ -192,7 +198,11 @@ class AdminScreenController:
         )
 
         self.addDialogPopUp = MDDialog(
-            MDDialogHeadlineText(text="ADD PRODUCT"),
+            MDDialogHeadlineText(
+                text="ADD PRODUCT",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("32CD32"),
+            ),
             # this is where the text fields for adding the products are kept
             MDDialogContentContainer(
                 self.productCodeTextField,
@@ -251,12 +261,16 @@ class AdminScreenController:
             MDButtonText(
                 text="yes",
                 theme_text_color="Custom",
-                text_color=(0, 0, 1, 1),
+                text_color=get_color_from_hex("#735FF2"),
             ),
             style="text",
         )
         self.confirmDialogBox = MDDialog(
-            MDDialogHeadlineText(text="ADD PRODUCT"),
+            MDDialogHeadlineText(
+                text="ADD PRODUCT",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("32CD32"),
+            ),
             # this is where the text field for deleting the products is kept
             MDDialogSupportingText(
                 text="Do you relly want to add this product?.",
@@ -281,7 +295,7 @@ class AdminScreenController:
         self.confirmDialogBox.dismiss()
         try:
             productCode = str(self.codeText.text).strip()
-            productName = str(self.nameText.text).strip()
+            productName = (str(self.nameText.text).strip()).lower()
             productCprice = np.float64(float(((self.cpriceText.text).strip()))).round(
                 decimals=2
             )
@@ -315,14 +329,18 @@ class AdminScreenController:
             MDButtonText(
                 text="Ok",
                 theme_text_color="Custom",
-                text_color=(0, 0, 1, 1),
+                text_color=get_color_from_hex("#735FF2"),
                 bold=True,
             ),
             style="text",
         )
 
         self.notEmptyDialogBox = MDDialog(
-            MDDialogHeadlineText(text="ERROR"),
+            MDDialogHeadlineText(
+                text="ERROR",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("32CD32"),
+            ),
             # this is where the text field for deleting the products is kept
             MDDialogSupportingText(
                 text="All product fields must be filled.",
@@ -348,14 +366,18 @@ class AdminScreenController:
             MDButtonText(
                 text="Ok",
                 theme_text_color="Custom",
-                text_color=(0, 0, 1, 1),
+                text_color=get_color_from_hex("#735FF2"),
                 bold=True,
             ),
             style="text",
         )
 
         self.validateDialogBox = MDDialog(
-            MDDialogHeadlineText(text="ERROR"),
+            MDDialogHeadlineText(
+                text="ERROR",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("32CD32"),
+            ),
             # this is where the text field for deleting the products is kept
             MDDialogSupportingText(
                 text="Product prices and Quantity fields takes only numbers",
@@ -391,7 +413,7 @@ class AdminScreenController:
             MDButtonText(text="Confirm"),
             style="filled",
             theme_bg_color="Custom",
-            md_bg_color=(0, 0, 1, 1),
+            md_bg_color=get_color_from_hex("#735FF2"),
         )
 
         # input fields for the popup box
@@ -414,7 +436,7 @@ class AdminScreenController:
             height="57dp",
             radius=["0dp", "10dp", "10dp", "0dp"],
             theme_bg_color="Custom",
-            md_bg_color=(0, 0, 1, 1),
+            md_bg_color=get_color_from_hex("32CD32"),
         )
         self.searchBoxlayout.add_widget(self.searchProductField)
         self.searchBoxlayout.add_widget(self.searchBtnInEditDialogBox)
@@ -441,7 +463,11 @@ class AdminScreenController:
         )
 
         self.editDialog = MDDialog(
-            MDDialogHeadlineText(text="EDIT PRODUCT"),
+            MDDialogHeadlineText(
+                text="EDIT PRODUCT",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("32CD32"),
+            ),
             # this is where the text fields for adding the products are kept
             MDDialogContentContainer(
                 self.searchBoxlayout,
@@ -530,13 +556,17 @@ class AdminScreenController:
             MDButtonText(
                 text="yes",
                 theme_text_color="Custom",
-                text_color=(0, 0, 1, 1),
+                text_color=get_color_from_hex("#735FF2"),
                 bold=True,
             ),
             style="text",
         )
         self.confirmEditDialogBox = MDDialog(
-            MDDialogHeadlineText(text="EDIT PRODUCT"),
+            MDDialogHeadlineText(
+                text="EDIT PRODUCT",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("32CD32"),
+            ),
             # this is where the text field for deleting the products is kept
             MDDialogSupportingText(
                 text="Do you relly want to edit this product?.",
@@ -592,14 +622,18 @@ class AdminScreenController:
             MDButtonText(
                 text="Ok",
                 theme_text_color="Custom",
-                text_color=(0, 0, 1, 1),
+                text_color=get_color_from_hex("#735FF2"),
                 bold=True,
             ),
             style="text",
         )
 
         self.notFoundDialogBox = MDDialog(
-            MDDialogHeadlineText(text="ERROR"),
+            MDDialogHeadlineText(
+                text="ERROR",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("32CD32"),
+            ),
             # this is where the text field for deleting the products is kept
             MDDialogSupportingText(
                 text="Product searched is not found.",
@@ -628,7 +662,7 @@ class AdminScreenController:
             MDButtonText(
                 text="close",
                 theme_text_color="Custom",
-                text_color=(0, 0, 1, 1),
+                text_color=get_color_from_hex("#735FF2"),
                 bold=True,
             ),
             style="text",
@@ -648,7 +682,11 @@ class AdminScreenController:
             text="",
         )
         self.deleteDialog = MDDialog(
-            MDDialogHeadlineText(text="DELETE PRODUCT"),
+            MDDialogHeadlineText(
+                text="DELETE PRODUCT",
+                theme_text_color="Custom",
+                text_color=(1, 0, 0, 1),
+            ),
             # this is where the text field for deleting the products is kept
             MDDialogContentContainer(
                 self.productToDeleteTextField,
@@ -706,12 +744,16 @@ class AdminScreenController:
             MDButtonText(
                 text="yes",
                 theme_text_color="Custom",
-                text_color=(0, 0, 1, 1),
+                text_color=get_color_from_hex("#735FF2"),
             ),
             style="text",
         )
         self.confirmDeleteDialogBox = MDDialog(
-            MDDialogHeadlineText(text="DELETE PRODUCT"),
+            MDDialogHeadlineText(
+                text="DELETE PRODUCT",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("32CD32"),
+            ),
             # this is where the text field for deleting the products is kept
             MDDialogSupportingText(
                 text="Do you relly want to delete this product?.",
@@ -737,14 +779,18 @@ class AdminScreenController:
             MDButtonText(
                 text="Ok",
                 theme_text_color="Custom",
-                text_color=(0, 0, 1, 1),
+                text_color=get_color_from_hex("#735FF2"),
                 bold=True,
             ),
             style="text",
         )
 
         self.notEmptyProductDialogBox = MDDialog(
-            MDDialogHeadlineText(text="ERROR"),
+            MDDialogHeadlineText(
+                text="ERROR",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("32CD32"),
+            ),
             # this is where the text field for deleting the products is kept
             MDDialogSupportingText(
                 text="Enter the product you want to delete.",
@@ -770,14 +816,18 @@ class AdminScreenController:
             MDButtonText(
                 text="Ok",
                 theme_text_color="Custom",
-                text_color=(0, 0, 1, 1),
+                text_color=get_color_from_hex("#735FF2"),
                 bold=True,
             ),
             style="text",
         )
 
         self.notDelededDialogBox = MDDialog(
-            MDDialogHeadlineText(text="ERROR"),
+            MDDialogHeadlineText(
+                text="ERROR",
+                theme_bg_color="Custom",
+                md_bg_color=(1, 0, 0, 1),
+            ),
             # this is where the text field for deleting the products is kept
             MDDialogSupportingText(
                 text="Product not found.",
@@ -797,43 +847,907 @@ class AdminScreenController:
         self.notDelededOkBtn.bind(on_press=self.notDelededDialogBox.dismiss)
         return self.notDelededDialogBox.open()
 
-    # def allActionsConfirmationDialogBox(self, instance, *args):
-    #     """this funtion is called any time you want to add,delet or edit a product.
-    #     if if yes it then call the function that corespond to the approperite action such as
-    #     1 addproduct()
-    #     2 deleteproduct()
-    #     3 comfirmEditProduct()
-    #     """
-    #     # buttons for the popup field
-    #     self.NoBtn = MDButton(
-    #         MDButtonText(text="No"),
-    #         style="text",
-    #     )
-    #     self.yesBtn = MDButton(
-    #         MDButtonText(text="yes"),
-    #         style="text",
-    #     )
-    #     self.allActionsDialog = MDDialog(
-    #         MDDialogHeadlineText(text=f"{instance}"),
-    #         # this is where the text field for deleting the products is kept
-    #         MDDialogSupportingText(
-    #             text="Do you relly want to .",
-    #             halign="left",
-    #         ),
-    #         MDDialogButtonContainer(
-    #             MDWidget(),
-    #             self.yesBtn,
-    #             self.NoBtn,
-    #             spacing="8dp",
-    #         ),
-    #         size_hint=(0.3, 0.5),
-    #         auto_dismiss=False,
-    #     )
-    #     # binding buttons to perform setting actions when pressed in the dialog box
-    #     self.yesBtn.bind(on_press=self.allActionConfirmBtn)
-    #     self.NoBtn.bind(on_press=self.allActionsDialog.dismiss)
-    #     return self.allActionsDialog.open()
+    # ----------------------------------user window section================
+    def AddUserDialogPopUpBox(self):
+        """This is a popup dialog page that pops up when you click on the
+        add button in the user page for you to add the user you want to
+        to the database
+        """
+        # buttons of the popup field
+        self.userCancelBtn = MDButton(
+            MDButtonText(text="Cancel"),
+            style="filled",
+            theme_bg_color="Custom",
+            md_bg_color=(1, 0, 0, 1),
+        )
+        self.userAddBtn = MDButton(
+            MDButtonText(text="Add"),
+            MDButtonIcon(icon="plus", theme_icon_color="Custom", icon_color="white"),
+            style="filled",
+            theme_bg_color="Custom",
+            md_bg_color=get_color_from_hex("#735FF2"),
+        )
 
-    # def allActionConfirmBtn(self, instance):
-    #     print(instance.text)
-    #     pass
+        # input fields for the popup box
+        self.userFirstNameTextField = MDTextField(
+            MDTextFieldHintText(text="user first name", text_color_normal="gray"),
+            text="",
+            multiline=False,
+        )
+        self.userLastNameTextField = MDTextField(
+            MDTextFieldHintText(text="user last name", text_color_normal="gray"),
+            text="",
+            multiline=False,
+        )
+        self.userPasswordTextField = MDTextField(
+            MDTextFieldHintText(text="password", text_color_normal="gray"),
+            text="",
+            multiline=False,
+        )
+        self.userDesignationTextField = MDTextField(
+            MDTextFieldHintText(
+                text="designation (admin or operator)", text_color_normal="gray"
+            ),
+            text="",
+            multiline=False,
+        )
+
+        self.userContactTextField = MDTextField(
+            MDTextFieldHintText(text="contact", text_color_normal="gray"),
+            MDTextFieldMaxLengthText(max_text_length=10),
+            text="",
+            multiline=False,
+        )
+
+        self.addUserDialogPopUp = MDDialog(
+            MDDialogHeadlineText(
+                text="ADD USER",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("32CD32"),
+            ),
+            # this is where the text fields for adding the products are kept
+            MDDialogContentContainer(
+                self.userFirstNameTextField,
+                self.userLastNameTextField,
+                self.userPasswordTextField,
+                self.userDesignationTextField,
+                self.userContactTextField,
+                orientation="vertical",
+                spacing="8dp",
+            ),
+            MDDialogButtonContainer(
+                MDWidget(),
+                self.userAddBtn,
+                self.userCancelBtn,
+                spacing="8dp",
+            ),
+            size_hint=(0.3, 0.5),
+            auto_dismiss=False,
+        )
+        self.userFirstNameText = self.userFirstNameTextField
+        self.userLastNameText = self.userLastNameTextField
+        self.userPasswordText = self.userPasswordTextField
+        self.userDesignationText = self.userDesignationTextField
+        self.userContactText = self.userContactTextField
+
+        self.userAddBtn.bind(on_press=self.confirmToAddUserDialogPopUpBox)
+        self.userCancelBtn.bind(on_press=self.addUserDialogPopUp.dismiss)
+        return self.addUserDialogPopUp
+
+    def openAddUserDialogPopUpBox(self):
+        self.AddUserDialogPopUpBox().open()
+
+    def confirmToAddUserDialogPopUpBox(self, instance, *args):
+        # checking to make sure all the fields are not empty
+
+        if (
+            str(self.userFirstNameText.text)
+            and str(self.userLastNameText.text)
+            and str(self.userPasswordText.text)
+            and str(self.userDesignationText.text)
+            and str(self.userContactText.text)
+        ) == "":
+            self.userFieldsMustNotBeEmptyPopupBox()
+            return
+
+        # buttons for the popup field
+        self.userNoBtn = MDButton(
+            MDButtonText(
+                text="No",
+                theme_text_color="Custom",
+                text_color=(1, 0, 0, 1),
+            ),
+            style="text",
+        )
+        self.userYesBtn = MDButton(
+            MDButtonText(
+                text="yes",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("#735FF2"),
+            ),
+            style="text",
+        )
+        self.confirmAddDialogBox = MDDialog(
+            MDDialogHeadlineText(text="ADD USER"),
+            # this is where the text field for deleting the products is kept
+            MDDialogSupportingText(
+                text="Do you relly want to add this user?.",
+                halign="left",
+            ),
+            MDDialogButtonContainer(
+                MDWidget(),
+                self.userYesBtn,
+                self.userNoBtn,
+                spacing="8dp",
+            ),
+            size_hint=(0.1, 0.4),
+            auto_dismiss=False,
+        )
+        # binding buttons to perform setting actions when pressed in the dialog box
+        self.userYesBtn.bind(on_press=self.addUser)
+        self.userNoBtn.bind(on_press=self.confirmAddDialogBox.dismiss)
+        return self.confirmAddDialogBox.open()
+
+    def userFieldsMustNotBeEmptyPopupBox(self):
+        # buttons for the popup field
+        self.okBtn = MDButton(
+            MDButtonText(
+                text="Ok",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("#735FF2"),
+                bold=True,
+            ),
+            style="text",
+        )
+
+        self.notEmptyDialogBox = MDDialog(
+            MDDialogHeadlineText(text="ERROR"),
+            # this is where the text field for deleting the products is kept
+            MDDialogSupportingText(
+                text="All user fields must be filled.",
+                halign="left",
+                theme_text_color="Custom",
+                text_color="red",
+            ),
+            MDDialogButtonContainer(
+                MDWidget(),
+                self.okBtn,
+                spacing="8dp",
+            ),
+            size_hint=(0.1, 0.4),
+            auto_dismiss=False,
+        )
+        # binding buttons to perform setting actions when pressed in the dialog box
+        self.okBtn.bind(on_press=self.notEmptyDialogBox.dismiss)
+        return self.notEmptyDialogBox.open()
+
+    def addUser(self, instance, *args):
+        "close dialog box"
+        self.confirmAddDialogBox.dismiss()
+        try:
+            userFName = (str(self.userFirstNameText.text).strip()).lower()
+            userLName = (str(self.userLastNameText.text).strip()).lower()
+            userPassword = str(self.userPasswordText.text).strip()
+            userDesignation = (str(self.userDesignationText.text).strip()).lower()
+            userContact = str(self.userContactText.text).strip()
+
+            if userFName == "":
+                self.userDataValidationPopUpBox()
+            if userLName == "":
+                self.userDataValidationPopUpBox()
+
+            elif userPassword == "":
+                self.userDataValidationPopUpBox()
+
+            elif userContact == "":
+                self.userDataValidationPopUpBox()
+
+            elif (str(userDesignation.lower()) != "admin") and (
+                str(userDesignation.lower()) != "operator"
+            ):
+                self.designationErrorPopuBox()
+            else:
+                self.model.addUserToDatabase(
+                    userFName, userLName, userPassword, userDesignation, userContact
+                )
+                # refresh the recycleview
+                self.view.ids["user_table"].refresh_from_data()
+                self.displayAllUsers()
+                # clear the fields after adding the product
+                self.userFirstNameText.text = ""
+                self.userLastNameText.text = ""
+                self.userPasswordText.text = ""
+                self.userDesignationText.text = ""
+                self.userContactText.text = ""
+        except Exception as e:
+            self.userDataValidationPopUpBox()
+            print(e)
+
+            return
+
+    def userDataValidationPopUpBox(self):
+        # buttons for the popup field
+        self.validationOkBtn = MDButton(
+            MDButtonText(
+                text="Ok",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("#735FF2"),
+                bold=True,
+            ),
+            style="text",
+        )
+
+        self.validateDialogBox = MDDialog(
+            MDDialogHeadlineText(text="ERROR"),
+            # this is where the text field for deleting the products is kept
+            MDDialogSupportingText(
+                text="user name and password fields must not be empty",
+                halign="left",
+                theme_text_color="Custom",
+                text_color="red",
+            ),
+            MDDialogButtonContainer(
+                MDWidget(),
+                self.validationOkBtn,
+                spacing="8dp",
+            ),
+            size_hint=(0.1, 0.4),
+            auto_dismiss=False,
+        )
+        # binding buttons to perform setting actions when pressed in the dialog box
+        self.validationOkBtn.bind(on_press=self.validateDialogBox.dismiss)
+        return self.validateDialogBox.open()
+
+    def designationErrorPopuBox(self):
+        # buttons for the popup field
+        self.designationOkBtn = MDButton(
+            MDButtonText(
+                text="Ok",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("#735FF2"),
+                bold=True,
+            ),
+            style="text",
+        )
+
+        self.designationDialogBox = MDDialog(
+            MDDialogHeadlineText(text="ERROR"),
+            # this is where the text field for deleting the products is kept
+            MDDialogSupportingText(
+                text="designation must be 'admin' or 'operator'",
+                halign="left",
+                theme_text_color="Custom",
+                text_color="red",
+            ),
+            MDDialogButtonContainer(
+                MDWidget(),
+                self.designationOkBtn,
+                spacing="8dp",
+            ),
+            size_hint=(0.1, 0.4),
+            auto_dismiss=False,
+        )
+        # binding buttons to perform setting actions when pressed in the dialog box
+        self.designationOkBtn.bind(on_press=self.designationDialogBox.dismiss)
+        return self.designationDialogBox.open()
+
+    def displayAllUsers(self):
+        allAvailableUsers = self.model.selectAllUsers()
+        # refrencing the recycle view where all the data will be displayed
+        recycleviewToDisplayData = self.view.ids["user_table"]
+
+        dataToDisplay = []
+        # display information on the recycle view(tabel containing the list of users) if there are no users in the system
+        if allAvailableUsers[0] == "None":
+            recycleviewToDisplayData.data = [
+                {"text": "There are no users curently in the system"}
+            ]
+        else:
+            """ displaying all the available users in the database"""
+            for user in allAvailableUsers:
+                try:
+                    userId = {"text": str(user[0])}
+                    userFName = {"text": str(user[1])}
+                    userLName = {"text": str(user[2])}
+                    userPassword = {"text": str(user[3])}
+                    userDesignation = {"text": str(user[4])}
+                    userContact = {"text": str(user[5])}
+
+                    dataToDisplay.append(userId)
+                    dataToDisplay.append(userFName)
+                    dataToDisplay.append(userLName)
+                    dataToDisplay.append(userPassword)
+                    dataToDisplay.append(userDesignation)
+                    dataToDisplay.append(userContact)
+                except Exception as e:
+                    pass
+            # populating the table with the selected data
+            recycleviewToDisplayData.refresh_from_data()
+            recycleviewToDisplayData.data = dataToDisplay
+
+    def searchUserByIdOrName(self, userIdOrName, userRecycleBox):
+        """This function is called by the search button in the user window
+        to display
+        1. all the user if the search box is empty or 'all'
+        2. display a particular user given its id,name or product bar code
+        """
+        selectedUsers = self.model.selectSearchedUser(
+            (str(userIdOrName).lower()).strip()
+        )
+
+        # creating an object of the recycle box where all the users data will be displayed
+        refrencedRecycleview = userRecycleBox
+
+        # giving a message to tell the user that the product that he or she is trying to search those not exist
+        if len(selectedUsers) == 0:
+            refrencedRecycleview.refresh_from_data()
+            refrencedRecycleview.data = [
+                {
+                    "text": f"There is no user in the system with name or id '{userIdOrName}'"
+                }
+            ]
+
+        else:
+            """populating the recycle view with the data of
+            the searched user"""
+
+            listOfsearchedUsers = []
+            for user in selectedUsers:
+                try:
+                    userId = {"text": str(user[0])}
+                    userFName = {"text": str(user[1])}
+                    userLName = {"text": str(user[2])}
+                    userPassword = {"text": str(user[3])}
+                    userDesignation = {"text": str(user[4])}
+                    userContact = {"text": str(user[5])}
+
+                    listOfsearchedUsers.append(userId)
+                    listOfsearchedUsers.append(userFName)
+                    listOfsearchedUsers.append(userLName)
+                    listOfsearchedUsers.append(userPassword)
+                    listOfsearchedUsers.append(userDesignation)
+                    listOfsearchedUsers.append(userContact)
+                except Exception as e:
+                    pass
+
+            # refreshing the recycleview and populating it with data searched
+            refrencedRecycleview.refresh_from_data()
+            refrencedRecycleview.data = listOfsearchedUsers
+
+    # ====================editing the user in your database==================================
+
+    def EditUserDialogPopUpBox(self):
+        # buttons fof the popup field
+        self.editUserCancelBtn = MDButton(
+            MDButtonText(text="Cancel"),
+            style="filled",
+            theme_bg_color="Custom",
+            md_bg_color=(1, 0, 0, 1),
+        )
+        self.confirmUserEditBtn = MDButton(
+            MDButtonText(text="Confirm"),
+            style="filled",
+            theme_bg_color="Custom",
+            md_bg_color=get_color_from_hex("#735FF2"),
+        )
+
+        # input fields for the popup box
+        # ---------top boxLayout that will contain the search boxt and the button------
+        self.searchUserBoxlayout = MDBoxLayout(
+            size_hint_y=None,
+            height="40dp",
+            spacing="5dp",
+            padding=["0dp", "0dp", "50dp", "10dp"],
+        )
+        self.searchUserField = MDTextField(
+            MDTextFieldHintText(
+                text="search user", text_color_normal="gray", height="40dp"
+            ),
+            text="",
+        )
+        self.searchBtnInUserEditDialogBox = MDButton(
+            MDButtonIcon(icon="magnify"),
+            style="filled",
+            height="57dp",
+            radius=["0dp", "10dp", "10dp", "0dp"],
+            theme_bg_color="Custom",
+            md_bg_color=get_color_from_hex("32CD32"),
+        )
+        self.searchUserBoxlayout.add_widget(self.searchUserField)
+        self.searchUserBoxlayout.add_widget(self.searchBtnInUserEditDialogBox)
+
+        self.editUserFirstNameTextField = MDTextField(
+            MDTextFieldHintText(text="user first name", text_color_normal="gray"),
+            text="",
+        )
+        self.editUserLastNameTextField = MDTextField(
+            MDTextFieldHintText(text="user last name", text_color_normal="gray"),
+            text="",
+        )
+        self.editUserPasswordTextField = MDTextField(
+            MDTextFieldHintText(text="password", text_color_normal="gray"),
+            text="",
+        )
+        self.editUserDesignationTextField = MDTextField(
+            MDTextFieldHintText(text="designation", text_color_normal="gray"),
+            text="",
+        )
+        self.editUserContactTextField = MDTextField(
+            MDTextFieldHintText(text="contact", text_color_normal="gray"),
+            text="",
+        )
+
+        self.editUserDialog = MDDialog(
+            MDDialogHeadlineText(
+                text="EDIT USER",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("32CD32"),
+            ),
+            # this is where the text fields for editing the user are kept
+            MDDialogContentContainer(
+                self.searchUserBoxlayout,
+                self.editUserFirstNameTextField,
+                self.editUserLastNameTextField,
+                self.editUserPasswordTextField,
+                self.editUserDesignationTextField,
+                self.editUserContactTextField,
+                orientation="vertical",
+                spacing="8dp",
+            ),
+            MDDialogButtonContainer(
+                MDWidget(),
+                self.confirmUserEditBtn,
+                self.editUserCancelBtn,
+                spacing="8dp",
+            ),
+            size_hint=(0.3, 0.5),
+            auto_dismiss=False,
+        )
+        self.userToSearchInEditPopUp = self.searchUserField
+        self.editedFNameText = self.editUserFirstNameTextField
+        self.editedLNameText = self.editUserLastNameTextField
+        self.editedPasswordText = self.editUserPasswordTextField
+        self.editedDesignationText = self.editUserDesignationTextField
+        self.editedContactText = self.editUserContactTextField
+
+        # binding buttons to perform setting actions when pressed in the dialog box
+        self.searchBtnInUserEditDialogBox.bind(on_press=self.searchUserToEdit)
+        self.confirmUserEditBtn.bind(on_press=self.confirmToEditUserDialogPopUpBox)
+        self.editUserCancelBtn.bind(on_press=self.editUserDialog.dismiss)
+        return self.editUserDialog
+
+    def openEditUserDialogPopUp(self):
+        self.EditUserDialogPopUpBox().open()
+
+    def searchUserToEdit(self, *args):
+        userToSearch = (str(self.userToSearchInEditPopUp.text).strip()).lower()
+        _user = self.model.selectSearchedUserToEdit(userToSearch)
+        # checking if the product to search does not exist
+        if _user is None:
+            self.searchUserNotFoundPopupBox()
+
+        else:
+            # USER details
+            try:
+                self._userId = str(_user[0])
+                _userfName = str(_user[1])
+                _userlName = str(_user[2])
+                _userPassword = str(_user[3])
+                _userDesignation = str(_user[4])
+                _userContact = str(_user[5])
+
+                # inserting the details to the popup dailogbox fields to be edited
+                self.editedFNameText.text = _userfName
+                self.editedLNameText.text = _userlName
+                self.editedPasswordText.text = _userPassword
+                self.editedDesignationText.text = _userDesignation
+                self.editedContactText.text = _userContact
+            except Exception as e:
+                pass
+
+    def confirmToEditUserDialogPopUpBox(self, instance, *args):
+        # checking to make sure all the fields are not empty
+        if (
+            str(self.editedFNameText.text)
+            and str(self.editedLNameText.text)
+            and str(self.editedPasswordText.text)
+            and str(self.editedDesignationText.text)
+            and str(self.editedContactText.text)
+        ) == "":
+            self.userFieldsMustNotBeEmptyPopupBox()
+            return
+
+        # buttons for the popup field
+        self.EditNoUserBtn = MDButton(
+            MDButtonText(
+                text="No",
+                theme_text_color="Custom",
+                text_color=(1, 0, 0, 1),
+                bold=True,
+            ),
+            style="text",
+        )
+        self.EditYesUserBtn = MDButton(
+            MDButtonText(
+                text="yes",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("#735FF2"),
+                bold=True,
+            ),
+            style="text",
+        )
+        self.confirmEditUserDialogBox = MDDialog(
+            MDDialogHeadlineText(
+                text="EDIT PRODUCT",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("32CD32"),
+            ),
+            # this is where the text field for deleting the products is kept
+            MDDialogSupportingText(
+                text="Do you relly want to edit this product?.",
+                halign="left",
+            ),
+            MDDialogButtonContainer(
+                MDWidget(),
+                self.EditYesUserBtn,
+                self.EditNoUserBtn,
+                spacing="8dp",
+            ),
+            size_hint=(0.1, 0.4),
+            auto_dismiss=False,
+        )
+        # binding buttons to perform setting actions when pressed in the dialog box
+        self.EditYesUserBtn.bind(on_press=self.confirmEditUser)
+        self.EditNoUserBtn.bind(on_press=self.confirmEditUserDialogBox.dismiss)
+        return self.confirmEditUserDialogBox.open()
+
+    def confirmEditUser(self, *args):
+        self.confirmEditUserDialogBox.dismiss()
+        try:
+            # taking the user details from the editing form
+            userfName = str(self.editedFNameText.text).strip()
+            userlName = str(self.editedLNameText.text).strip()
+            userPassword = str(self.editedPasswordText.text).strip()
+            userDesignation = str(self.editedDesignationText.text).strip()
+            userContact = str(self.editedContactText.text).strip()
+
+            if (str(userDesignation.lower()) != "admin") and (
+                str(userDesignation.lower()) != "operator"
+            ):
+                self.designationErrorPopuBox()
+            else:
+                self.model.updateUser(
+                    self._userId,
+                    userfName,
+                    userlName,
+                    userPassword,
+                    userDesignation,
+                    userContact,
+                )
+
+                # refresh the recycleview
+                self.view.ids["user_table"].refresh_from_data()
+                self.displayAllUsers()
+                # clear the fields after adding the product
+                self.editedFNameText.text = ""
+                self.editedLNameText.text = ""
+                self.editedPasswordText.text = ""
+                self.editedDesignationText.text = ""
+                self.editedContactText.text = ""
+        except Exception as e:
+            self.userDataValidationPopUpBox()
+
+    def searchUserNotFoundPopupBox(self):
+        # buttons for the popup field
+        self.userNotFoundOkBtn = MDButton(
+            MDButtonText(
+                text="Ok",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("#735FF2"),
+                bold=True,
+            ),
+            style="text",
+        )
+
+        self.userNotFoundDialogBox = MDDialog(
+            MDDialogHeadlineText(
+                text="ERROR",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("32CD32"),
+            ),
+            # this is where the text field for deleting the products is kept
+            MDDialogSupportingText(
+                text="user searched is not found.",
+                halign="left",
+                theme_text_color="Custom",
+                text_color="red",
+            ),
+            MDDialogButtonContainer(
+                MDWidget(),
+                self.userNotFoundOkBtn,
+                spacing="8dp",
+            ),
+            size_hint=(0.1, 0.4),
+            auto_dismiss=False,
+        )
+        # binding buttons to perform setting actions when pressed in the dialog box
+        self.userNotFoundOkBtn.bind(on_press=self.userNotFoundDialogBox.dismiss)
+        return self.userNotFoundDialogBox.open()
+
+    # ====================end of editing the user in your database==================================
+
+    # ================ deleating a user from the database=====================
+    def deleteUserDialogBox(self):
+        # buttons fof the popup field
+        self.deleteUserNoBtn = MDButton(
+            MDButtonText(
+                text="close",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("#735FF2"),
+                bold=True,
+            ),
+            style="text",
+        )
+        self.deleteUserBtn = MDButton(
+            MDButtonText(
+                text="delete",
+                theme_text_color="Custom",
+                text_color=(1, 0, 0, 1),
+                bold=True,
+            ),
+            style="text",
+        )
+
+        self.userToDeleteTextField = MDTextField(
+            MDTextFieldHintText(text="Enter user id", text_color_normal="gray"),
+            text="",
+        )
+        self.deleteUserDialog = MDDialog(
+            MDDialogHeadlineText(
+                text="DELETE USER",
+                theme_text_color="Custom",
+                text_color=(1, 0, 0, 1),
+            ),
+            # this is where the text field for deleting the products is kept
+            MDDialogContentContainer(
+                self.userToDeleteTextField,
+                orientation="vertical",
+                spacing="8dp",
+            ),
+            MDDialogButtonContainer(
+                MDWidget(),
+                self.deleteUserBtn,
+                self.deleteUserNoBtn,
+                spacing="8dp",
+            ),
+            size_hint=(0.3, 0.5),
+            auto_dismiss=False,
+        )
+        self.userToDelete = self.userToDeleteTextField
+
+        # binding buttons to perform setting actions when pressed in the dialog box
+        self.deleteUserBtn.bind(on_press=self.confirmToDeleteUserDialogPopUpBox)
+        self.deleteUserNoBtn.bind(on_press=self.deleteUserDialog.dismiss)
+        return self.deleteUserDialog
+
+    def openDeleteUserPopuBox(self):
+        self.deleteUserDialogBox().open()
+
+    def deleteUserFromDatabase(self, *args):
+        self.userConfirmDeleteDialogBox.dismiss()
+        userToDelete_ = str(self.userToDelete.text).strip().lower()
+        isDeleted = self.model.deleteUser(userToDelete_)
+
+        if isDeleted == "No":
+            self.userNotDeletedPopUp()
+            return
+        self.userToDelete.text = ""
+        # refresh the recycleview
+        self.view.ids["user_table"].refresh_from_data()
+        self.displayAllUsers()
+
+    def confirmToDeleteUserDialogPopUpBox(self, instance, *args):
+        # checking to make sure the search fields not empty
+        if str(self.userToDelete.text).strip() == "":
+            self.userToDeleteFieldsMustNotBeEmptyPopupBox()
+            return
+
+        # buttons for the popup field
+        self.userNoDeleteBtn = MDButton(
+            MDButtonText(
+                text="No",
+                theme_text_color="Custom",
+                text_color=(1, 0, 0, 1),
+            ),
+            style="text",
+        )
+        self.userYesDeleteBtn = MDButton(
+            MDButtonText(
+                text="yes",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("#735FF2"),
+            ),
+            style="text",
+        )
+        self.userConfirmDeleteDialogBox = MDDialog(
+            MDDialogHeadlineText(
+                text="DELETE PRODUCT",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("32CD32"),
+            ),
+            # this is where the text field for deleting the products is kept
+            MDDialogSupportingText(
+                text="Do you relly want to delete this product?.",
+                halign="left",
+            ),
+            MDDialogButtonContainer(
+                MDWidget(),
+                self.userYesDeleteBtn,
+                self.userNoDeleteBtn,
+                spacing="8dp",
+            ),
+            size_hint=(0.1, 0.4),
+            auto_dismiss=False,
+        )
+        # binding buttons to perform setting actions when pressed in the dialog box
+        self.userYesDeleteBtn.bind(on_press=self.deleteUserFromDatabase)
+        self.userNoDeleteBtn.bind(on_press=self.userConfirmDeleteDialogBox.dismiss)
+        return self.userConfirmDeleteDialogBox.open()
+
+    def userToDeleteFieldsMustNotBeEmptyPopupBox(self):
+        # buttons for the popup field
+        self.userdelOkBtn = MDButton(
+            MDButtonText(
+                text="Ok",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("#735FF2"),
+                bold=True,
+            ),
+            style="text",
+        )
+
+        self.usernotEmptyProductDialogBox = MDDialog(
+            MDDialogHeadlineText(
+                text="ERROR",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("32CD32"),
+            ),
+            # this is where the text field for deleting the products is kept
+            MDDialogSupportingText(
+                text="Enter the id of the user you want to delete.",
+                halign="left",
+                theme_text_color="Custom",
+                text_color="red",
+            ),
+            MDDialogButtonContainer(
+                MDWidget(),
+                self.userdelOkBtn,
+                spacing="8dp",
+            ),
+            size_hint=(0.1, 0.4),
+            auto_dismiss=False,
+        )
+        # binding buttons to perform setting actions when pressed in the dialog box
+        self.userdelOkBtn.bind(on_press=self.usernotEmptyProductDialogBox.dismiss)
+        return self.usernotEmptyProductDialogBox.open()
+
+    def userNotDeletedPopUp(self):
+        # buttons for the popup field
+        self.userNotDelededOkBtn = MDButton(
+            MDButtonText(
+                text="Ok",
+                theme_text_color="Custom",
+                text_color=get_color_from_hex("#735FF2"),
+                bold=True,
+            ),
+            style="text",
+        )
+
+        self.userNotDelededDialogBox = MDDialog(
+            MDDialogHeadlineText(
+                text="ERROR",
+                theme_text_color="Custom",
+                text_color=(1, 0, 0, 1),
+            ),
+            # this is where the text field for deleting the products is kept
+            MDDialogSupportingText(
+                text="User not found.",
+                halign="left",
+                theme_text_color="Custom",
+                text_color="red",
+            ),
+            MDDialogButtonContainer(
+                MDWidget(),
+                self.userNotDelededOkBtn,
+                spacing="8dp",
+            ),
+            size_hint=(0.1, 0.4),
+            auto_dismiss=False,
+        )
+        # binding buttons to perform setting actions when pressed in the dialog box
+        self.userNotDelededOkBtn.bind(on_press=self.userNotDelededDialogBox.dismiss)
+        return self.userNotDelededDialogBox.open()
+
+    # ========================sales section=======================
+    def displayAllSales(self):
+        allAvailableSales = self.model.selectAllSales()
+        # sorting all the sale product base on their code and displaying the sum all the details
+        sumOfSales = dict()
+        # get unigue codes of the sales made
+        for sale in allAvailableSales:
+            if sale[1] in sumOfSales.keys():  # the product code
+                # updating it quantity and profit
+                priviewsQt = sumOfSales[f"{sale[1]}"][3]
+                priviewsProfit = sumOfSales[f"{sale[1]}"][5]
+                qtToAdd = sale[3]
+                profitToAdd = sale[5]
+                # updated
+                sumOfSales[f"{sale[1]}"][3] = int(priviewsQt) + int(qtToAdd)
+                sumOfSales[f"{sale[1]}"][5] = decimal.Decimal(
+                    str(float(priviewsProfit) + float(profitToAdd))
+                ).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+            else:
+                # creating a sale with it code as the key
+                sumOfSales[f"{sale[1]}"] = list(sale)
+        # refrencing the recycle view where all the data will be displayed
+        recycleviewToDisplaySalesData = self.view.ids["sales_products_table"]
+
+        salesDataToDisplay = []
+
+        # display information on the recycle view(tabel containing the list of users) if there are no users in the system
+        if allAvailableSales[0] == "None":
+            recycleviewToDisplaySalesData.data = [
+                {"text": "There are no sales curently in the system"}
+            ]
+        else:
+            """ displaying all the available sales in the database"""
+            for key in sumOfSales.keys():
+                try:
+                    salesDataToDisplay.append(
+                        {"text": str(sumOfSales[key][1])}
+                    )  # ===>Sale code
+                    salesDataToDisplay.append(
+                        {"text": str(sumOfSales[key][2])}
+                    )  # ===>product name
+                    salesDataToDisplay.append(
+                        {"text": str(sumOfSales[key][3])}
+                    )  # ===>Sale qt
+                    salesDataToDisplay.append(
+                        {"text": str(sumOfSales[key][5])}
+                    )  # ===>profit made
+
+                except Exception as e:
+                    print(e)
+                    pass
+            # populating the table with the selected data
+            recycleviewToDisplaySalesData.refresh_from_data()
+            recycleviewToDisplaySalesData.data = salesDataToDisplay
+
+    def showAllSales(self):
+        self.displayAllSales()
+        # setting the data of the filter recycle view
+        self.view.ids["sales_filter_buttons_data"].data = [{"text": "All sales"}]
+
+    def filterByYear(self):
+        years = self.model.selectSalesByYear()
+        # setting the data of the filter recycle view
+        self.view.ids["sales_filter_buttons_data"].data = [
+            {"text": str(yea[0])} for yea in years
+        ]
+
+    def filterByMonth(self):
+        months = self.model.selectSalesByMonth()
+        # setting the data of the filter recycle view
+        self.view.ids["sales_filter_buttons_data"].data = [
+            {"text": str(mon[0])} for mon in months
+        ]
+
+    def filterByDay(self):
+        days = self.model.selectSalesByDay()
+        # setting the data of the filter recycle view
+        self.view.ids["sales_filter_buttons_data"].data = [
+            {"text": str(day[0])} for day in days
+        ]
+
+    # ========================end of sales section=======================
