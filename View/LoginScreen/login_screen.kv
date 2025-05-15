@@ -1,6 +1,8 @@
+# This import is use to render hexa color code in the app
 #:import get_color_from_hex kivy.utils.get_color_from_hex
 
 <LoginScreenView>:
+    name:'login screen'
     # properties that are available in the 
     # python file
     user_name:user_name
@@ -8,9 +10,13 @@
     user_error_ms:wrong_user_details_error
     user_password:user_password
     user_name:user_name
+    
+    # colors
+    #:set primaryBackgroundColor get_color_from_hex("#DBE2E9")
+    #:set primaryGreenColor get_color_from_hex("32CD32")
+    #:set primaryTextGrayColor get_color_from_hex("#757575")
 
-    md_bg_color: (1,1,1,1)
-    name:'login screen'
+    md_bg_color: primaryBackgroundColor
     # the main container for all the widgets
     MDBoxLayout:
         orientation: 'horizontal'
@@ -19,12 +25,12 @@
             orientation: 'vertical'
             padding: "5dp"
             MDFloatLayout:
-                md_bg_color: (1,1,1,1) 
+                md_bg_color: primaryBackgroundColor 
                 MDBoxLayout:
                     orientation: 'vertical'
                     size_hint: (.8,.5)
                     pos_hint: {'x':.1, 'y':.2 }
-                    md_bg_color: (1,1,1,1)
+                    md_bg_color: primaryBackgroundColor
                     spacing: '10dp'
                     # text boxlayout
                     MDBoxLayout:
@@ -36,7 +42,7 @@
                         MDLabel:
                             text: 'Sign in to ABMS'
                             theme_text_color: 'Custom'
-                            text_color:get_color_from_hex("32CD32")
+                            text_color:primaryGreenColor
                             adaptive_height: True
                             font_style: "Title"
                             role: "medium"
@@ -71,7 +77,7 @@
                             MDTextFieldLeadingIcon:
                                 icon: 'account'
                                 theme_icon_color: "Custom"
-                                icon_color_normal: get_color_from_hex("32CD32")
+                                icon_color_normal: primaryGreenColor
                         MDTextField:
                             id:user_password
                             multiline: False
@@ -84,19 +90,19 @@
                             MDTextFieldLeadingIcon:
                                 icon: 'account'
                                 theme_icon_color: "Custom"
-                                icon_color_normal: get_color_from_hex("32CD32")
+                                icon_color_normal: primaryGreenColor
                             MDTextFieldTrailingIcon:
                                 id:show_password
                                 icon: 'eye-off'
                                 theme_icon_color: "Custom"
-                                icon_color_normal: get_color_from_hex("32CD32")
+                                icon_color_normal: primaryGreenColor
                         MDBoxLayout:
                             size_hint:(None,None)
                             adaptive_height: True 
                             spacing: '2dp'
                             MDCheckbox:
                                 color_inactive:  get_color_from_hex("5C5C5C")
-                                color_active: get_color_from_hex("32CD32")
+                                color_active: primaryGreenColor
                                 on_press: root.show_hide_password_button_clicked(self,show_password,user_password)
                                 # adaptive_height: True
                             MDLabel:
@@ -107,7 +113,7 @@
                         MDButton:
                             theme_width: "Custom"
                             theme_bg_color: "Custom"
-                            md_bg_color:  get_color_from_hex("32CD32")
+                            md_bg_color:  primaryGreenColor
                             style: "filled"
                             size_hint_x: 1
                             theme_shadow_color: "Custom"
@@ -119,29 +125,22 @@
                                 text_color: "white"
                                 pos_hint: {"center_x": .5, "center_y": .5}
                                 bold: True
-                        MDButton:
-                            style: 'text'
-                            MDButtonText:
-                                text: 'Fogot password?'
-                                adaptive_height: True
-                                adaptive_width: True
-                                theme_text_color: 'Custom'
-                                text_color:  get_color_from_hex("5C5C5C")
+                        MDBoxLayout:
                             
-
+                        
                     
                
                 
             
         # right box for the app info
         MDBoxLayout:
-            md_bg_color: (1,1,1,1)
+            md_bg_color: primaryBackgroundColor
             orientation: 'vertical'
             padding: "30dp"
             MDBoxLayout:
                 size_hint_y: .4
                 orientation: 'vertical'
-                md_bg_color: get_color_from_hex("32CD32")
+                md_bg_color: primaryGreenColor
                 padding: '15dp'
                 MDLabel:
                     
@@ -156,7 +155,7 @@
             MDBoxLayout:
                 size_hint_y: .6
                 orientation: 'vertical'
-                md_bg_color: get_color_from_hex("32CD32")
+                md_bg_color: primaryGreenColor
                 MDBoxLayout:
                     Image:
                         source: ("Assets\\Images\\image_one .jpeg")

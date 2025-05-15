@@ -1,0 +1,14 @@
+
+ Name : Techw wolrd car
+ Contact : 243546
+ Location : bolgaty
+ Reciept Id : 20250514163347
+
+ Items   Rate     Qt    Amount 
+
+ techno  567.0    1     567.0  
+                Totol:  567.00 
+
+ Developed by TechWorld
+ contact : 0548947033
+    

@@ -1,3 +1,6 @@
+from log.logs import Logs
+
+
 class AdminScreenModel:
     def __init__(self, database):
         self.database = database
@@ -19,6 +22,7 @@ class AdminScreenModel:
                 product = cur.fetchall()
                 return product
         except Exception as e:
+            Logs().logException(str(e))
             return []
 
     def selectSearchedUser(self, userIdOrName):
@@ -40,7 +44,7 @@ class AdminScreenModel:
                 user = cur.fetchall()
                 return user
         except Exception as e:
-            print(e)
+            Logs().logException(str(e))
             return []
 
     def selectAllProduct(self):
@@ -55,6 +59,7 @@ class AdminScreenModel:
             else:
                 return allProducts
         except Exception as e:
+            Logs().logException(str(e))
             return ["None"]
 
     def selectAllUsers(self):
@@ -69,6 +74,7 @@ class AdminScreenModel:
             else:
                 return allUsers
         except Exception as e:
+            Logs().logException(str(e))
             return ["None"]
 
     def addProductToDatabase(self, code, name, cprice, sprice, quantity):
@@ -85,9 +91,9 @@ class AdminScreenModel:
                 f"insert into products(product_bar_code,product_name,product_cost_price,product_selling_price,product_quantity ) values('{code}','{name}',{costprice},{sellingprice},{quantity});"
             )
             db.commit()
-            db.close()
+
         except Exception as e:
-            print(e)
+            Logs().logException(str(e))
 
     def addUserToDatabase(self, fname, lname, password, designation, contact):
         try:
@@ -104,9 +110,9 @@ class AdminScreenModel:
                 f"insert into user(user_first_name,user_last_name,user_password,user_designation,user_contact) values('{fname}','{lname}','{password}','{designation}','{contact}');"
             )
             db.commit()
-            db.close()
+
         except Exception as e:
-            print(e)
+            Logs().logException(str(e))
 
     def selectSearchedProductToEdit(self, productIdOrNameOrCode):
         try:
@@ -123,6 +129,7 @@ class AdminScreenModel:
                 product = cur.fetchone()
                 return product
         except Exception as e:
+            Logs().logException(str(e))
             return None
 
     # sales section
@@ -136,7 +143,7 @@ class AdminScreenModel:
             sales = cur.fetchall()
             return sales
         except Exception as e:
-            print(e)
+            Logs().logException(str(e))
             return ["None"]
 
     def selectSalesByYear(self):
@@ -149,7 +156,7 @@ class AdminScreenModel:
             salesByYear = cur.fetchall()
             return salesByYear
         except Exception as e:
-            print(e)
+            Logs().logException(str(e))
             return ["None"]
 
     def selectSalesByMonth(self):
@@ -162,7 +169,7 @@ class AdminScreenModel:
             salesByMonth = cur.fetchall()
             return salesByMonth
         except Exception as e:
-            print(e)
+            Logs().logException(str(e))
             return ["None"]
 
     def selectSalesByDay(self):
@@ -175,7 +182,7 @@ class AdminScreenModel:
             salesByDay = cur.fetchall()
             return salesByDay
         except Exception as e:
-            print(e)
+            Logs().logException(str(e))
             return ["None"]
 
     def selectSearchedUserToEdit(self, userIdOrfNameOrlName):
@@ -193,6 +200,7 @@ class AdminScreenModel:
                 user = cur.fetchone()
                 return user
         except Exception as e:
+            Logs().logException(str(e))
             return None
 
     def updateProduct(self, pId, pCode, pName, pCprice, pSprice, pQt):
@@ -204,10 +212,8 @@ class AdminScreenModel:
                 f"update products SET product_bar_code='{pCode}',product_name='{pName}',product_cost_price={pCprice},product_selling_price={pSprice},product_quantity={pQt} where product_id={pId};"
             )
             db.commit()
-            db.close()
         except Exception as e:
-            print(e)
-            pass
+            Logs().logException(str(e))
 
     def updateUser(self, uId, fName, lName, password, designation, contact):
         try:
@@ -218,20 +224,22 @@ class AdminScreenModel:
                 f"update user SET user_first_name='{fName}',user_last_name='{lName}',user_password='{password}',user_designation='{designation}',user_contact={contact} where user_id={uId};"
             )
             db.commit()
-            db.close()
+
         except Exception as e:
-            print(e)
-            pass
+            Logs().logException(str(e))
 
     def deleteProduct(self, productToDelete):
         try:
             db = self.database
             cur = db.cursor()
 
-            cur.execute(f"""delete from products where product_id={productToDelete};""")
+            cur.execute(
+                f"""delete from products where product_id={productToDelete} OR product_bar_code='{productToDelete}';"""
+            )
             db.commit()
         except Exception as e:
             # if the product deleted is not found
+            Logs().logException(str(e))
 
             return "No"
 
@@ -244,4 +252,106 @@ class AdminScreenModel:
             db.commit()
         except Exception as e:
             # if the product deleted is not found
+            Logs().logException(str(e))
             return "No"
+
+    def selectSales(self, baseOnWhat):
+        try:
+            db = self.database
+            cur = db.cursor()
+            # displaying the selected product
+            # date TEXT NOT NULL,
+            # month TEXT NOT NULL,
+            # year TEXT NOT NULL
+
+            cur.execute(
+                f"SELECT * from sales where date='{baseOnWhat}'or month='{baseOnWhat}'or year='{baseOnWhat}';"
+            )
+            sales = cur.fetchall()
+            return sales
+        except Exception as e:
+            Logs().logException(str(e))
+            return ["None"]
+
+    def selectAllOutOfStockProducts(self):
+        try:
+            db = self.database
+            cur = db.cursor()
+            # displaying the selected product
+            # date TEXT NOT NULL,
+            # month TEXT NOT NULL,
+            # year TEXT NOT NULL
+
+            cur.execute("SELECT * from products where product_quantity=0;")
+            outOfStock = cur.fetchall()
+            return outOfStock
+        except Exception as e:
+            Logs().logException(str(e))
+            return []
+
+    def selectAllRuningOutOfStockProducts(self):
+        try:
+            db = self.database
+            cur = db.cursor()
+            # displaying the selected product
+            # date TEXT NOT NULL,
+            # month TEXT NOT NULL,
+            # year TEXT NOT NULL
+
+            cur.execute("SELECT * from products where product_quantity<5;")
+            outOfStock = cur.fetchall()
+            return outOfStock
+        except Exception as e:
+            Logs().logException(str(e))
+            return []
+
+    def updateCompanyName(self, newName):
+        try:
+            db = self.database
+            cur = db.cursor()
+
+            cur.execute(
+                f"update company_details SET company_name='{newName}' where company_id=1;"
+            )
+            db.commit()
+
+        except Exception as e:
+            Logs().logException(str(e))
+
+    def updateCompanyLocation(self, location):
+        try:
+            db = self.database
+            cur = db.cursor()
+
+            cur.execute(
+                f"update company_details SET company_location='{location}' where company_id=1;"
+            )
+            db.commit()
+
+        except Exception as e:
+            Logs().logException(str(e))
+
+    def updateCompanyContact(self, contact):
+        try:
+            db = self.database
+            cur = db.cursor()
+
+            cur.execute(
+                f"update company_details SET company_contact='{contact}' where company_id=1;"
+            )
+            db.commit()
+
+        except Exception as e:
+            Logs().logException(str(e))
+
+    def returningCompanyDetails(self):
+        try:
+            db = self.database
+            cur = db.cursor()
+
+            cur.execute("select * from company_details;")
+            details = cur.fetchall()
+            return details
+
+        except Exception as e:
+            Logs().logException(str(e))

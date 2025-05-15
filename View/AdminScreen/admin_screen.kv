@@ -1,5 +1,7 @@
 #:import get_color_from_hex kivy.utils.get_color_from_hex
+
 <AdminScreenView>:
+    
     ##:set primaryGrayColor get_color_from_hex("32CD32")
     #:set primaryGreenColor get_color_from_hex("32CD32")
     #:set appBarTextColor (1,1,1,1)
@@ -35,7 +37,9 @@
                 theme_bg_color: "Custom"
                 md_bg_color: primaryGreenColor
                 radius: ['2dp','2dp','2dp','2dp']
-                on_press: root.controller.get_parent(nav_screen_manager,p_button)
+                # on_press: root.controller.get_parent(nav_screen_manager,p_button)
+                on_press: root.controller.goToOperatorPage()
+
                 MDButtonText:
                     id:operatorscreen_button
                     text:'Operator screen'
@@ -47,7 +51,8 @@
                 theme_bg_color: "Custom"
                 md_bg_color: primaryGreenColor
                 radius: ['2dp','2dp','2dp','2dp']
-                on_press: root.controller.get_parent(nav_screen_manager,p_button)
+                # on_press: root.controller.get_parent(nav_screen_manager,p_button)
+                on_press: root.controller.confirmToLogoutDialogPopUpBox()
                 MDButtonText:
                     id:logout_button
                     text:'log out'
@@ -116,7 +121,24 @@
                         on_press: root.controller.get_parent(nav_screen_manager,a_button)
                         MDButtonText:
                             id:a_button
-                            text:'Analysis'
+                            text:'Store details'
+                            theme_text_color: 'Custom'
+                            text_color: leftNavTextColor 
+                            bold: True
+                            pos_hint: {'center_x':.5 , 'center_y':.5 }
+                    MDButton:
+                        mode: 'outlined'
+                        theme_width:'Custom'
+                        theme_shadow_color:'Custom'
+                        shadow_color:primaryGreenColor
+                        theme_bg_color: "Custom"
+                        md_bg_color:primaryGreenColor
+                        size_hint_x: 1
+                        radius: ['2dp','2dp','2dp','2dp']
+                        on_press: root.controller.get_parent(nav_screen_manager,o_button)
+                        MDButtonText:
+                            id:o_button
+                            text:'Out of stock'
                             theme_text_color: 'Custom'
                             text_color: leftNavTextColor 
                             bold: True
@@ -155,7 +177,7 @@
                         name: 'products screen'
                         MDBoxLayout:
                             orientation: 'vertical'
-                            # upper BoxLayout:
+                            # upper BoxLayout
                             MDBoxLayout:
                                 md_bg_color: primaryBackgroundColor
                                 size_hint_y: None 
@@ -184,7 +206,7 @@
                                         style: "filled"
                                         height: "57dp"
                                         radius: ['0dp','10dp','10dp','0dp']
-                                        on_press:root.controller.searchProductByIdOrName(adminsearchbox.text)
+                                        on_press:root.controller.searchProductByIdOrName(adminsearchbox,adminsearchbox.text)
                                         MDButtonIcon:
                                             icon: 'magnify'
                                 # BoxLayout between the product search box and add product button
@@ -208,7 +230,6 @@
                                             theme_bg_color: "Custom"
                                             md_bg_color:  primaryBlueColor
                                             style: "filled"
-                                            # height: "57dp"
                                             radius: ['15dp','0dp','15dp','0dp']
                                             on_press:root.controller.openAddProductDialogPopUpBox()
                                             MDButtonText:
@@ -221,7 +242,6 @@
                                             theme_bg_color: "Custom"
                                             md_bg_color:  (0,1,0,1)
                                             style: "filled"
-                                            # height: "57dp"
                                             radius: ['15dp','0dp','15dp','0dp']
                                             on_press:root.controller.openEditDialogPopUp()
                                             MDButtonText:
@@ -235,7 +255,6 @@
                                             theme_bg_color: "Custom"
                                             md_bg_color:  (1,0,0,1)
                                             style: "filled"
-                                            # height: "57dp"
                                             radius: ['15dp','0dp','15dp','0dp']
                                             on_press:root.controller.openDeletePopuBox()
                                             MDButtonText:
@@ -304,7 +323,6 @@
                                     MDBoxLayout:
                                         size_hint_y: None 
                                         height: '5dp'
-                                        # padding: ('0dp', '0dp', '0dp', '0.2dp')
                                         md_bg_color: primaryGreenColor
                                 MDBoxLayout:
                                     MDRecycleView:
@@ -321,8 +339,7 @@
                                             height: self.minimum_height
                                             default_size_hint: (1,None)
                                             default_size: None,dp(40)
-                                            
-                                    
+                                
 
                     # Sales screen
                     MDScreen:
@@ -336,6 +353,7 @@
                                 md_bg_color: primaryBackgroundColor
                                 size_hint_y: None 
                                 height: "100dp"
+                                spacing: "50dp"
                                 # the filter section
                                 MDCard:
                                     style:'filled'
@@ -349,8 +367,6 @@
                                     MDCard:
                                         style:'filled'
                                         padding: "4dp"
-                                        # size_hint: None, None 
-                                        # size: '330dp','90dp'
                                         theme_bg_color: "Custom"
                                         md_bg_color: primaryBackgroundColor
                                         orientation: 'vertical'
@@ -368,8 +384,9 @@
                                                 theme_bg_color: "Custom"
                                                 md_bg_color: primaryGreenColor
                                                 style: "filled"
-                                                on_press:root.controller.showAllSales()
+                                                on_press:root.controller.showAllSales(selectItem)
                                                 MDButtonText:
+                                                    id: allButton
                                                     text:'All'
                                                     theme_text_color: 'Custom'
                                                     text_color: (1,1,1,1) 
@@ -380,7 +397,7 @@
                                                 theme_bg_color: "Custom"
                                                 md_bg_color:  primaryGreenColor
                                                 style: "filled"
-                                                on_press:root.controller.filterByYear()
+                                                on_press:root.controller.filterByYear(selectItem)
                                                 MDButtonText:
                                                     text:'Year'
                                                     theme_text_color: 'Custom'
@@ -392,7 +409,7 @@
                                                 theme_bg_color: "Custom"
                                                 md_bg_color:  primaryGreenColor
                                                 style: "filled"
-                                                on_press:root.controller.filterByMonth()
+                                                on_press:root.controller.filterByMonth(selectItem)
                                                 MDButtonText:
                                                     text:'Month'
                                                     theme_text_color: 'Custom'
@@ -404,7 +421,7 @@
                                                 theme_bg_color: "Custom"
                                                 md_bg_color:  primaryGreenColor
                                                 style: "filled"
-                                                on_press:root.controller.filterByDay()
+                                                on_press:root.controller.filterByDay(selectItem)
                                                 MDButtonText:
                                                     text:'Day'
                                                     theme_text_color: 'Custom'
@@ -412,113 +429,258 @@
                                                     bold: True
                                 # layout beside the filter card to the left   
                                 MDBoxLayout:
-                                    
-                            # lower boxlayout 
-                            MDBoxLayout:
-                                md_bg_color: (1,1,0,1)
-                                # the  vetical filter section 
-                                MDCard:
-                                    style:'filled'
-                                    padding: "2dp"
-                                    size_hint_x: None
-                                    width: '110dp'
-                                    theme_bg_color: "Custom"
-                                    md_bg_color: primaryGreenColor
                                     orientation: 'vertical'
-                                    radius: '2dp'
-                                    # inner filter section
-                                    MDCard:
-                                        style:'filled'
-                                        padding: "4dp"
-                                        # size_hint: None, None 
-                                        # size: '330dp','90dp'
-                                        theme_bg_color: "Custom"
-                                        md_bg_color: primaryBackgroundColor
-                                        orientation: 'vertical'
-                                        # vertical filter recycleview
-                                        FilterRecycleView:
-                                            id:sales_filter_buttons_data
-                                            viewclass: 'SelectableLabel'
-                                            bar_width: "10dp"
-                                            bar_inactive_color: (.5,.5,.5,1)
-                                            bar_color: (.2,.2,.2,1)
-                                            # data:[{'text':'november'}]
-                                            SelectableRecycleBoxLayout:
-                                                md_bg_color:primaryBlueColor
-                                                spacing: '1dp'
-                                                cols: 4
-                                                size_hint_y: None
-                                                height: self.minimum_height
-                                                default_size_hint: (1,None)
-                                                default_size: None,dp(40)
-                                                orientation: 'vertical'
-                                                multiselect: False 
-                                                touch_multiselect: False
-
-
-                                # boxlayout for the sales ListView
-                                MDBoxLayout:
-                                    orientation: 'vertical'
-                                    md_bg_color: primaryBackgroundColor
-                                    MDGridLayout:
-                                        size_hint_y: None 
-                                        height: "40dp"
-                                        cols: 4
-                                        MDLabel:
-                                            text: 'Product Code'
-                                            halign: 'center'
-                                            theme_text_color: 'Custom'
-                                            text_color: primaryGreenColor
-                                            bold: True
-                                        MDLabel:
-                                            text: 'Product Name'
-                                            halign: 'center'
-                                            theme_text_color: 'Custom'
-                                            text_color: primaryGreenColor
-                                            bold: True
-                                        MDLabel:
-                                            text: 'Quantity sold'
-                                            halign: 'center'
-                                            theme_text_color: 'Custom'
-                                            text_color: primaryGreenColor
-                                            bold: True
-                                        MDLabel:
-                                            text: 'Profit made'
-                                            halign: 'center'
-                                            theme_text_color: 'Custom'
-                                            text_color: primaryGreenColor
-                                            bold: True
-                                    # sales data table layout BoxLayout:
                                     MDBoxLayout:
                                         
-                                        MDRecycleView:
-                                            id:sales_products_table
-                                            viewclass: 'ProductsLabel'
-                                            bar_width: "10dp"
-                                            bar_inactive_color: (.5,.5,.5,1)
-                                            bar_color: (.2,.2,.2,1)
-                                            
-                                            MDRecycleGridLayout:
-                                                md_bg_color:primaryBlueColor
-                                                spacing: '1dp'
-                                                cols: 4
-                                                size_hint_y: None
-                                                height: self.minimum_height
-                                                default_size_hint: (1,None)
-                                                default_size: None,dp(40)
-                                            
-                                        
-                                # boxlayout for the sales sumarry
-                                MDBoxLayout:
-                                    orientation: 'vertical'
+                                    # putting a dropdown selection here
+                                    MDBoxLayout:
+                                        spacing: '10dp'
+                                        size_hint_y: None 
+                                        height:'40dp'
+                                        Spinner:
+                                            id: selectItem
+                                            size_hint: None, None
+                                            size: 160, 40
+                                            text:'Filter'
+                                            values:['All sales']
+                                            text_autoupdate:True
+                                        # Daily button
+                                        MDButton:
+                                            mode: 'outlined'
+                                            theme_bg_color: "Custom"
+                                            md_bg_color:  primaryGreenColor
+                                            style: "filled"
+                                            height: "40dp"
+                                            radius: ['0dp','10dp','10dp','0dp']
+                                            on_press:root.controller.searchSalesProduct(selectItem)
+                                            MDButtonIcon:
+                                                icon: 'magnify'
+                                    MDBoxLayout:
+                                           
+
+
                                     
+                                        
+                            # lower boxlayout 
+                            MDBoxLayout:
+                                orientation: 'vertical'
+                                md_bg_color: primaryBackgroundColor
+                                MDGridLayout:
+                                    size_hint_y: None 
+                                    height: "40dp"
+                                    cols: 4
+                                    MDLabel:
+                                        text: 'Product Code'
+                                        halign: 'center'
+                                        theme_text_color: 'Custom'
+                                        text_color: primaryGreenColor
+                                        bold: True
+                                    MDLabel:
+                                        text: 'Product Name'
+                                        halign: 'center'
+                                        theme_text_color: 'Custom'
+                                        text_color: primaryGreenColor
+                                        bold: True
+                                    MDLabel:
+                                        text: 'Quantity sold'
+                                        halign: 'center'
+                                        theme_text_color: 'Custom'
+                                        text_color: primaryGreenColor
+                                        bold: True
+                                    MDLabel:
+                                        text: 'Profit made'
+                                        halign: 'center'
+                                        theme_text_color: 'Custom'
+                                        text_color: primaryGreenColor
+                                        bold: True
+                                # sales data table layout BoxLayout:
+                                MDBoxLayout:
+                                    MDRecycleView:
+                                        id:sales_products_table
+                                        viewclass: 'ProductsLabel'
+                                        bar_width: "10dp"
+                                        bar_inactive_color: (.5,.5,.5,1)
+                                        bar_color: (.2,.2,.2,1)
+                                        
+                                        MDRecycleGridLayout:
+                                            md_bg_color:primaryBlueColor
+                                            spacing: '1dp'
+                                            cols: 4
+                                            size_hint_y: None
+                                            height: self.minimum_height
+                                            default_size_hint: (1,None)
+                                            default_size: None,dp(40)
+                                        
+                             
 
 
                         
                     MDScreen:
-                        name: 'analysis screen'
-                        MDLabel:
-                            text: 'ana'
+                        name: 'Store details screen'
+                        # main boxlayout 
+                        MDBoxLayout:
+                            orientation: 'vertical'
+                            padding: '20dp'
+                            # top section
+                            MDBoxLayout:
+                                size_hint_y: .3 
+                                MDBoxLayout:
+                                    orientation: 'vertical'
+                                    spacing: '10dp'
+                                    # company name
+                                    MDBoxLayout:
+                                        size_hint_y: None 
+                                        height: '30dp'
+                                        MDLabel:
+                                            text: 'Name :'
+                                        MDLabel:
+                                            id: companyName
+                                            text: 'techworld'
+                                        MDButton:
+                                            mode:'text'
+                                            theme_bg_color: "Custom"
+                                            md_bg_color:  primaryGreenColor
+                                            style: "filled"
+                                            radius: '1dp'
+                                            on_press:root.controller.EditCompanyNameDialogPopUpBox()
+                                            MDButtonText:
+                                                text:'edit'
+                                                theme_text_color: 'Custom'
+                                                text_color: (1,1,1,1) 
+                                                bold: True
+                                        
+                                    # company location
+                                    MDBoxLayout:
+                                        MDLabel:
+                                            text: 'Location:'
+                                        MDLabel:
+                                            id: companyLocation
+                                            text: 'bolga'
+                                        MDButton:
+                                            mode:'text'
+                                            theme_bg_color: "Custom"
+                                            md_bg_color:  primaryGreenColor
+                                            style: "filled"
+                                            radius: '1dp'
+                                            on_press:root.controller.EditCompanyLocationDialogPopUpBox()
+                                            MDButtonText:
+                                                text:'edit'
+                                                theme_text_color: 'Custom'
+                                                text_color: (1,1,1,1) 
+                                                bold: True
+                                    # company contact
+                                    MDBoxLayout:
+                                        MDLabel:
+                                            text: 'contact:'
+                                        MDLabel:
+                                            id: companyContact
+                                            text: '02456778'
+                                        MDButton:
+                                            mode:'text'
+                                            theme_bg_color: "Custom"
+                                            md_bg_color:  primaryGreenColor
+                                            style: "filled"
+                                            radius: '1dp'
+                                            on_press:root.controller.EditCompanyContactDialogPopUpBox()
+                                            MDButtonText:
+                                                text:'edit'
+                                                theme_text_color: 'Custom'
+                                                text_color: (1,1,1,1) 
+                                                bold: True
+                                MDBoxLayout:
+                                        
+                            # dow boxlayout 
+                            MDBoxLayout:
+
+
+
+                    # THE OUT OF STOCK SCREEN
+                    MDScreen:
+                        name: "Out of stock screen"
+                        # main box
+                        MDBoxLayout:
+                            orientation: 'vertical'
+                            
+                            # top box
+                            MDBoxLayout:
+                                size_hint_y: .3
+                                md_bg_color: primaryBackgroundColor
+                                # products that are out of the stock
+                                MDBoxLayout:
+                                    orientation: 'vertical'
+                                    MDBoxLayout:
+                                        size_hint_y: None 
+                                        height: '30dp'
+                                        MDLabel:
+                                            text:'Product out of stock'
+                                            text_color: primaryGreenColor
+                                            bold:True
+                                            halign: 'center'
+                                    MDRecycleView:
+                                        id:adminStockOutData
+                                        viewclass: 'AdminOutOfStockLabel'
+                                        bar_width: "10dp"
+                                        bar_inactive_color: (.5,.5,.5,1)
+                                        bar_color: (.2,.2,.2,1)
+                                        MDRecycleGridLayout:
+                                            cols: 1
+                                            size_hint_y: None
+                                            height: self.minimum_height
+                                            default_size_hint: (1,None)
+                                            default_size: None,dp(40)
+                                # products that are about to run out
+                                MDBoxLayout:
+                                    orientation: 'vertical'
+                                    MDBoxLayout:
+                                        size_hint_y: None 
+                                        height: '30dp'
+                                        MDLabel:
+                                            text:'Product runing out of stock'
+                                            text_color: primaryGreenColor
+                                            bold:True
+                                            halign: 'center'
+                                    MDRecycleView:
+                                        id:adminStockRuningOutData
+                                        viewclass: 'AdminRuningOutOfStockLabel'
+                                        bar_width: "10dp"
+                                        bar_inactive_color: (.5,.5,.5,1)
+                                        bar_color: (.2,.2,.2,1)
+                                        MDRecycleGridLayout:
+                                            cols: 1
+                                            size_hint_y: None
+                                            height: self.minimum_height
+                                            default_size_hint: (1,None)
+                                            default_size: None,dp(40)
+                                    
+                            # down box
+                            MDBoxLayout:
+                                size_hint_y: .7
+                                md_bg_color: (1,0,0,1)
+                            
+                        #         MDLabel:
+                        #             text:'Product out of stock'
+                        #             text_color: primaryGreenColor
+                        #             bold:True
+                        #             halign: 'center'
+                        #     MDRecycleView:
+                        #         id:stockOutData
+                        #         viewclass: 'OutOfStockLabel'
+                        #         bar_width: "10dp"
+                        #         bar_inactive_color: (.5,.5,.5,1)
+                        #         bar_color: (.2,.2,.2,1)
+                        #         data:[{'text':'ggg'},{'text':'ggg'},{'text':'gggggggggggggggggggggggggg'},{'text':'ggg'},{'text':'ggg'},{'text':'ggg'},{'text':'ggg'},{'text':'ggg'}]
+                        #         MDRecycleGridLayout:
+                        #             cols: 1
+                        #             size_hint_y: None
+                        #             height: self.minimum_height
+                        #             default_size_hint: (1,None)
+                        #             default_size: None,dp(40)
+                        # # products ranning out
+                        # MDBoxLayout:
+                            
+
+
+                                    
 
                     # THE USERS SCREEN OR PAGE 
                     MDScreen:
@@ -580,7 +742,6 @@
                                         theme_bg_color: "Custom"
                                         md_bg_color:  primaryBlueColor
                                         style: "filled"
-                                        # height: "57dp"
                                         radius: ['15dp','0dp','15dp','0dp']
                                         on_press:root.controller.openAddUserDialogPopUpBox()
                                         MDButtonText:
@@ -593,7 +754,6 @@
                                         theme_bg_color: "Custom"
                                         md_bg_color:  (0,1,0,1)
                                         style: "filled"
-                                        # height: "57dp"
                                         radius: ['15dp','0dp','15dp','0dp']
                                         on_press:root.controller.openEditUserDialogPopUp()
                                         MDButtonText:
@@ -607,7 +767,6 @@
                                         theme_bg_color: "Custom"
                                         md_bg_color:  (1,0,0,1)
                                         style: "filled"
-                                        # height: "57dp"
                                         radius: ['15dp','0dp','15dp','0dp']
                                         on_press:root.controller.openDeleteUserPopuBox()
                                         MDButtonText:
@@ -682,7 +841,7 @@
                                             
                             
                     
-                # md_bg_color: primaryColor
+                
 
         # status bar
         MDBoxLayout:
@@ -700,13 +859,13 @@
 <ProductsLabel@MDLabel>:
     halign: 'center'
     md_bg_color:tabledataColor
+<AdminOutOfStockLabel@MDLabel>:         
+    halign: 'center'
+    text_color: (1,0,0,1)
+<AdminRuningOutOfStockLabel@MDLabel>:         
+    halign: 'center'
+    text_color: (0,0,1,1)
 
-<FilterRecycleView>:
-<SelectableLabel>:
-    canvas.before:
-        Color: 
-            rgb: primaryBlueColor if self.selected else  primaryGreenColor
-        Rectangle: 
-            pos: self.pos
-            size:self.size 
-<SelectableRecycleBoxLayout>:
+
+
+

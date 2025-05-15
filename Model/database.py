@@ -6,6 +6,8 @@ class DataBase:
         self.create_products_table()
         self.create_sales_table()
         self.create_user_table()
+        self.create_company_details_table()
+        # self.creatingDefaulCompanyDetails()
         # self.creatingDefautLogedInuser()
 
     def get_database_connection(self):
@@ -22,7 +24,6 @@ class DataBase:
                  user_designation TEXT NOT NULL,
                  user_contact INTEGER NOT NULL);"""
         cursor.execute(query)
-        db.close()
 
     def create_products_table(self):
         """This function is use to create the users table
@@ -39,7 +40,6 @@ class DataBase:
                  product_quantity integer NOT NULL
                 );"""
         cursor.execute(quary)
-        db.close()
 
     def create_sales_table(self):
         """This function is use to create the sales table
@@ -60,8 +60,27 @@ class DataBase:
                     year TEXT NOT NULL
                     );"""
             cursor.execute(quary)
-            db.close()
-        except:
+
+        except Exception as e:
+            pass
+
+    def create_company_details_table(self):
+        """This function is use to create the create_company_details table
+        and it is called in the init method
+        """
+        try:
+            db = self.get_database_connection()
+            cursor = db.cursor()
+            quary = """CREATE TABLE IF NOT EXISTS company_details(
+                    company_id INTEGER PRIMARY KEY,
+                    company_name text NOT NULL,
+                    company_location text NOT NULL,
+                    company_contact text NOT NULL
+                    );"""
+            cursor.execute(quary)
+
+        except Exception as e:
+            print(e)
             pass
 
     def creatingDefautLogedInuser(self):
@@ -72,7 +91,20 @@ class DataBase:
             q = """insert into products values('product_id','1234','sumsong',80.6,90.0,78.0);"""
             cursor.execute(q)
             db.commit()
-            db.close()
+
+        except Exception as e:
+            print(e)
+            pass
+
+    def creatingDefaulCompanyDetails(self):
+        try:
+            db = self.get_database_connection()
+            cursor = db.cursor()
+
+            q = """insert into company_details(company_name,company_location,company_contact) values('Enter_your_company_name','Enter_your_company_location','Enter_your_company_contact_number');"""
+            cursor.execute(q)
+            db.commit()
+
         except Exception as e:
             print(e)
             pass

@@ -12,6 +12,8 @@ class ABMSApp(MDApp):
     def __init__(self, *args, **kwargs):
         super(ABMSApp, self).__init__(*args, **kwargs)
         # self.load_all_kv_files(self.directory)
+        # self.screen_manager = MDScreenManager()
+        # self.database = DataBase().get_database_connection()
 
     def build_app(self):
         self.screen_manager = MDScreenManager()

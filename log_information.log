@@ -1,0 +1,217 @@
+2025-05-14 16:19:28,874 - test - ERROR - list index out of range
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\operator_screen_controller.py", line 361, in undoButton
+    key_of_the_last_product = str(self.recently_added_product_id[-1])
+IndexError: list index out of range
+2025-05-14 16:28:11,268 - test - ERROR - list index out of range
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\operator_screen_controller.py", line 362, in undoButton
+    key_of_the_last_product = str(self.recently_added_product_id[-1])
+IndexError: list index out of range
+2025-05-14 16:28:39,231 - test - ERROR - list index out of range
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\operator_screen_controller.py", line 362, in undoButton
+    key_of_the_last_product = str(self.recently_added_product_id[-1])
+IndexError: list index out of range
+2025-05-14 16:28:39,231 - test - ERROR - list index out of range
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\operator_screen_controller.py", line 362, in undoButton
+    key_of_the_last_product = str(self.recently_added_product_id[-1])
+IndexError: list index out of range
+2025-05-14 16:31:15,924 - test - ERROR - THE ERROR IS INTENTIONALlist index out of range
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\operator_screen_controller.py", line 362, in undoButton
+    key_of_the_last_product = str(self.recently_added_product_id[-1])
+IndexError: list index out of range
+2025-05-14 16:35:42,768 - test - ERROR - THIS ERROR IS INTENTIONAL IF IT IS INDEX OUT OF RANGE '7'
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\operator_screen_controller.py", line 363, in undoButton
+    product_to_undo = self.products_on_the_card[
+KeyError: '7'
+2025-05-14 16:35:46,598 - test - ERROR - THIS ERROR IS INTENTIONAL IF IT IS INDEX OUT OF RANGE '7'
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\operator_screen_controller.py", line 363, in undoButton
+    product_to_undo = self.products_on_the_card[
+KeyError: '7'
+2025-05-14 16:35:46,598 - test - ERROR - THIS ERROR IS INTENTIONAL IF IT IS INDEX OUT OF RANGE '7'
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\operator_screen_controller.py", line 363, in undoButton
+    product_to_undo = self.products_on_the_card[
+KeyError: '7'
+2025-05-14 16:35:47,774 - test - ERROR - THIS ERROR IS INTENTIONAL IF IT IS INDEX OUT OF RANGE '7'
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\operator_screen_controller.py", line 363, in undoButton
+    product_to_undo = self.products_on_the_card[
+KeyError: '7'
+2025-05-14 16:35:47,774 - test - ERROR - THIS ERROR IS INTENTIONAL IF IT IS INDEX OUT OF RANGE '7'
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\operator_screen_controller.py", line 363, in undoButton
+    product_to_undo = self.products_on_the_card[
+KeyError: '7'
+2025-05-14 16:35:47,774 - test - ERROR - THIS ERROR IS INTENTIONAL IF IT IS INDEX OUT OF RANGE '7'
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\operator_screen_controller.py", line 363, in undoButton
+    product_to_undo = self.products_on_the_card[
+KeyError: '7'
+2025-05-14 16:35:48,651 - test - ERROR - THIS ERROR IS INTENTIONAL IF IT IS INDEX OUT OF RANGE '7'
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\operator_screen_controller.py", line 363, in undoButton
+    product_to_undo = self.products_on_the_card[
+KeyError: '7'
+2025-05-14 16:35:48,651 - test - ERROR - THIS ERROR IS INTENTIONAL IF IT IS INDEX OUT OF RANGE '7'
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\operator_screen_controller.py", line 363, in undoButton
+    product_to_undo = self.products_on_the_card[
+KeyError: '7'
+2025-05-14 16:35:48,651 - test - ERROR - THIS ERROR IS INTENTIONAL IF IT IS INDEX OUT OF RANGE '7'
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\operator_screen_controller.py", line 363, in undoButton
+    product_to_undo = self.products_on_the_card[
+KeyError: '7'
+2025-05-14 16:35:48,651 - test - ERROR - THIS ERROR IS INTENTIONAL IF IT IS INDEX OUT OF RANGE '7'
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\operator_screen_controller.py", line 363, in undoButton
+    product_to_undo = self.products_on_the_card[
+KeyError: '7'
+2025-05-14 17:38:40,385 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:40,429 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:40,429 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:40,571 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:40,571 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:40,571 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:40,641 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:40,641 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:40,641 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:40,641 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:40,821 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:40,821 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:40,821 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:40,821 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:40,821 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:41,022 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:41,022 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:41,022 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:41,022 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:41,022 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:41,022 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:41,113 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:41,113 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:41,113 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:41,113 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:41,113 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:41,113 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-14 17:38:41,113 - test - ERROR - name 'productQuantity' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\S_MANAGEMENT_SYSTEM\Controller\admin_screen_controller.py", line 212, in displayAllProducts
+    dataToDisplay.append(productQuantity)
+NameError: name 'productQuantity' is not defined
+2025-05-15 10:49:43,460 - test - ERROR - error
+NoneType: None

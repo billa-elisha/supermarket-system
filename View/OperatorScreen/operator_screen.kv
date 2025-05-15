@@ -10,22 +10,62 @@
     totalpurchased:totalpurchased
 
     # colors
-    #:set mainBackgroundColor (1,1,1,1)
-    #:set primaryColor get_color_from_hex("32CD32")
+    #:set primaryBackgroundColor get_color_from_hex("#DBE2E9")
+    #:set primaryGreenColor get_color_from_hex("32CD32")
     #:set billHeaderTextColor (1,1,1,1)
     #:set primaryTextColor get_color_from_hex("5C5C5C")
     
     name:'operator screen'
-    md_bg_color: mainBackgroundColor
+    md_bg_color: primaryBackgroundColor
     MDBoxLayout:
         orientation: 'vertical'
-        md_bg_color: primaryColor
+        md_bg_color: primaryGreenColor
         padding: '2dp'
         spacing: '2dp'
 
+        # app bar
         MDBoxLayout:
             size_hint_y: None
             height:'40dp'
+            md_bg_color: primaryGreenColor
+            MDBoxLayout:
+            # where logout or go to admin page are located
+            MDBoxLayout:
+                size_hint_x: None
+                width: '260dp'
+                spacing: '10dp'
+                padding: ('10dp', '0dp', '10dp', '0dp')
+                MDButton:
+                    id:adminPageBtn
+                    mode:'outlined'
+                    theme_bg_color: "Custom"
+                    theme_shadow_color:'Custom'
+                    shadow_color:primaryGreenColor
+                    md_bg_color: primaryGreenColor 
+                    on_press: root.controller.logInToAdminPagePopuBox()
+                    adaptive_width: True
+                    radius: "1dp"
+                    
+                    MDButtonText:
+                        id:pageNavigationBtn
+                        text:'admin page'
+                        theme_text_color: 'Custom'
+                        text_color: (1,1,1,1) 
+                        bold: True
+                MDButton:
+                    mode:'outlined'
+                    theme_bg_color: "Custom"
+                    theme_shadow_color:'Custom'
+                    shadow_color:primaryGreenColor
+                    md_bg_color: primaryGreenColor 
+                    on_press: root.controller.confirmToLogoutDialogPopUpBox()
+                    adaptive_width: True
+                    radius: '1dp'
+                    MDButtonText:
+                        text:'logout'
+                        theme_text_color: 'Custom'
+                        text_color: (1,1,1,1) 
+                        bold: True
 
         # TOP BoxLayout:
         MDBoxLayout:
@@ -34,7 +74,7 @@
             # Searching section
             MDBoxLayout:
                 orientation: 'horizontal'
-                md_bg_color: mainBackgroundColor
+                md_bg_color: primaryBackgroundColor
                 padding: '20dp'
                 MDBoxLayout:
                     orientation: 'vertical'
@@ -56,14 +96,17 @@
                             mode:'outlined'
                             multiline: False
                             radius: ['10dp','0dp','0dp','10dp']
+                            focus: True
                             MDTextFieldHintText:
                                 text: "Name or barcode"
                                 text_color_normal: "gray"
+                                
+
                             
                         MDButton:
                             mode: 'outlined'
                             theme_bg_color: "Custom"
-                            md_bg_color:  primaryColor
+                            md_bg_color:  primaryGreenColor
                             style: "filled"
                             height: "57dp"
                             radius: ['0dp','10dp','10dp','0dp']
@@ -81,7 +124,7 @@
             # searched product section
             MDBoxLayout:
                 orientation: 'vertical'
-                md_bg_color: mainBackgroundColor
+                md_bg_color: primaryBackgroundColor
                 padding: '10dp'
                 MDBoxLayout:
                     MDBoxLayout:
@@ -116,8 +159,7 @@
                                 text_color:  primaryTextColor
                             
                 MDBoxLayout:
-                    # size_hint_y: None
-                    spacing:'20'
+                    spacing:'20dp'
                     MDBoxLayout:
                         size_hint_x: .1
                         
@@ -164,7 +206,7 @@
             MDBoxLayout:
                 id:billing_box
                 orientation: 'vertical'
-                md_bg_color: mainBackgroundColor
+                md_bg_color: primaryBackgroundColor
                 padding: '20dp'
                 MDBoxLayout:
                     size_hint_y: None
@@ -184,7 +226,7 @@
                 MDBoxLayout:
                     size_hint_y: None
                     height: "40dp"
-                    md_bg_color: primaryColor
+                    md_bg_color: primaryGreenColor
                     padding: '10dp'
                     MDLabel:
                         text:'Item'
@@ -233,12 +275,12 @@
         # BOTTOM BoxLayout
         MDBoxLayout:
             size_hint_y: .4
-            md_bg_color: mainBackgroundColor
+            md_bg_color: primaryBackgroundColor
             orientation: 'vertical'
             MDBoxLayout:
                 size_hint_y: None 
                 height: '50dp'
-                md_bg_color: mainBackgroundColor
+                md_bg_color: primaryBackgroundColor
                 padding: ('30dp', '5dp', '30dp', '5dp')
                 spacing: '120dp'
                 MDBoxLayout:
@@ -256,7 +298,7 @@
                 MDButton:
                     mode:'outlined'
                     theme_bg_color: "Custom"
-                    md_bg_color: primaryColor
+                    md_bg_color: primaryGreenColor
                     on_press: root.controller.finiliseButton(checbox,bill_data,amountsoldtoday,totalpurchased)
                     MDButtonText:
                         text:'finalize'
@@ -265,4 +307,35 @@
                         text_color: (1,1,1,1) 
             
             MDBoxLayout:
-            
+                # Products out of stock
+                padding: '10dp'
+                MDBoxLayout:
+                    size_hint_x: .2
+                    orientation: 'vertical'
+                    # out of stock box
+                    MDBoxLayout:
+                        size_hint_y: None 
+                        height: "10dp"
+                        MDLabel:
+                            text:'Product out of stock'
+                            text_color: primaryGreenColor
+                            bold:True
+                            halign: 'center'
+                    MDRecycleView:
+                        id:stockOutData
+                        viewclass: 'OutOfStockLabel'
+                        bar_width: "10dp"
+                        bar_inactive_color: (.5,.5,.5,1)
+                        bar_color: (.2,.2,.2,1)
+                        # data:[{'text':'ggg'},{'text':'ggg'},{'text':'gggggggggggggggggggggggggg'},{'text':'ggg'},{'text':'ggg'},{'text':'ggg'},{'text':'ggg'},{'text':'ggg'}]
+                        MDRecycleGridLayout:
+                            cols: 1
+                            size_hint_y: None
+                            height: self.minimum_height
+                            default_size_hint: (1,None)
+                            default_size: None,dp(40)
+                MDBoxLayout:
+                    
+<OutOfStockLabel@MDLabel>:         
+    halign: 'center'
+    text_color: (1,0,0,1) 

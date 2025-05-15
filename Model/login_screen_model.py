@@ -10,22 +10,9 @@ class LoginScreenModel:
             db = self.database
             cur = db.cursor()
             cur.execute(
-                f"SELECT user_first_name,user_password from user where user_first_name='{userName}' AND user_password='{userPassword}';"
+                f"SELECT user_first_name,user_password,user_designation from user where user_first_name='{userName}' AND user_password='{userPassword}';"
             )
             user_data = cur.fetchone()
             return user_data
         except Exception as e:
             return None
-
-        # self.creat_user_table()
-
-    # def validate_user_login_cridentials(self):
-    #     return self.database.get_database_connection()
-
-    # def creat_user_table(self):
-    #     conn = self.database.get_database_connection()
-
-    #     cur = conn.cursor()
-    #     cur.execute(
-    #         """CREATE TABLE IF NOT EXISTS user(id INTEGER PRIMARY KEY AUTOINCREMENT);"""
-    #     )

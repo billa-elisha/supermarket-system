@@ -1,0 +1,11 @@
+
+ Name : WorldTech
+ Contact : 045456566
+ Location : Bolgatanga
+
+ Items   Rate     Qt    Amount 
+
+ techno  567.0    1     567.0  
+                Totol:  567.00 
+
+    

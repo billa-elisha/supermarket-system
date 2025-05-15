@@ -1,10 +1,10 @@
 from datetime import datetime
+from log.logs import Logs
 
 
 class OperatorScreenModel:
     def __init__(self, database):
         self.database = database
-        self.selectProduct("4332")
 
     def fetchSearchedProduct(self, pName, pCode):
         """search by product name or product bar code"""
@@ -29,7 +29,7 @@ class OperatorScreenModel:
                 product = cur.fetchone()
                 return product
         except Exception as e:
-            pass
+            Logs().logException(str(e))
 
     def selectProduct(self, product_dentity):
         # This is the structure of the product table
@@ -58,6 +58,7 @@ class OperatorScreenModel:
             product = cursor.fetchone()
             return product
         except Exception as e:
+            Logs().logException(str(e))
             return None
 
     def updateProduct(self, id, qt):
@@ -88,7 +89,7 @@ class OperatorScreenModel:
             db.commit()
 
         except Exception as e:
-            pass
+            Logs().logException(str(e))
 
     def insertInToSalesTable(
         self,
@@ -125,8 +126,7 @@ class OperatorScreenModel:
             db.commit()
 
         except Exception as e:
-            print("from database", e)
-            pass
+            Logs().logException(str(e))
 
     def amountSoldOnEachDay(self):
         # This is the structure of the product table
@@ -157,4 +157,44 @@ class OperatorScreenModel:
                 return total
 
         except Exception as e:
-            pass
+            Logs().logException(str(e))
+
+    def select_user_designation(self, userPassword, uName):
+        try:
+            db = self.database
+            cur = db.cursor()
+            cur.execute(
+                f"SELECT user_designation from user where user_password='{userPassword}' AND user_first_name='{uName}';"
+            )
+            user_disig = cur.fetchone()
+            return user_disig
+        except Exception as e:
+            return ("None",)
+
+    def returnCompanyDetails(self):
+        try:
+            db = self.database
+            cur = db.cursor()
+
+            cur.execute("select * from company_details;")
+            details = cur.fetchall()
+            return details
+
+        except Exception as e:
+            Logs().logException(str(e))
+
+    def selectAllOutOfStockProducts(self):
+        try:
+            db = self.database
+            cur = db.cursor()
+            # displaying the selected product
+            # date TEXT NOT NULL,
+            # month TEXT NOT NULL,
+            # year TEXT NOT NULL
+
+            cur.execute("SELECT * from products where product_quantity=0;")
+            outOfStock = cur.fetchall()
+            return outOfStock
+        except Exception as e:
+            Logs().logException(str(e))
+            return []

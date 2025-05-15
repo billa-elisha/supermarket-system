@@ -1,0 +1,15 @@
+
+ Name : WorldTech
+ Contact : 045456566
+ Location : Bolgatanga
+ Reciept Id : 20250509122415
+
+ Items   Rate    Qt    Amount 
+
+ lipton  15.0    2     30.0   
+ sprite  78.0    3     234.0  
+               Totol:  264.00 
+
+ Developed by TechWorld
+ contact : 0548947033
+    
